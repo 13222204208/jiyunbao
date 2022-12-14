@@ -88,3 +88,21 @@ type AreaInfo struct {
 	AreaLevel    string `json:"areaLevel"`
 	ParentCityCd string `json:"parentCityCd"`
 }
+
+//商户余额查询返回数据
+//业务响应参数的集合，最大长度不限
+type BalanceQueryResult struct {
+	Code                       string          `json:"code"`
+	Msg                        string          `json:"msg"`
+	AccountTotalAmount         string          `json:"account_total_amount"`
+	AccountSettledUnpaidAmount string          `json:"account_settled_unpaid_amount"`
+	AccountDetail              []AccountDetail `json:"account_detail"`
+}
+
+// 账户明细 account_detail
+type AccountDetail struct {
+	AccountId              string `json:"account_id"`
+	AccountType            string `json:"account_type"`
+	AccountAmount          string `json:"account_amount"`
+	AccountWithdrawbalance string `json:"account_withdrawbalance"`
+}

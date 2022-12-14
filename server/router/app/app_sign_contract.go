@@ -25,5 +25,8 @@ func (s *AppSignContractRouter) InitAppSignContractRouter(Router *gin.RouterGrou
 	{
 		appSignContractRouterWithoutRecord.GET("findAppSignContract", appSignContractApi.FindAppSignContract)       // 根据ID获取AppSignContract
 		appSignContractRouterWithoutRecord.GET("getAppSignContractList", appSignContractApi.GetAppSignContractList) // 获取AppSignContract列表
+
+		//获取商户余额
+		appSignContractRouterWithoutRecord.GET("balanceQuery", appSignContractApi.BalanceQuery)
 	}
 }

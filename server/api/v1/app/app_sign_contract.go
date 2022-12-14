@@ -206,3 +206,23 @@ func (appSignContractApi *AppSignContractApi) QueryAuthInfo(c *gin.Context) {
 		response.OkWithMessage(res, c)
 	}
 }
+
+func (appSignContractApi *AppSignContractApi) BalanceQuery(c *gin.Context) {
+	var s app.AppSignContract
+	err := c.ShouldBindQuery(&s)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if s.MercId == "" {
+		response.FailWithMessage("商户号不能为空", c)
+		return
+	}
+	if err, res := appSignContractService.BalanceQuery(s.MercId); err != nil {
+		global.GVA_LOG.Error("查询余额失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithMessage(res, c)
+	}
+}

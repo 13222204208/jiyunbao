@@ -325,10 +325,13 @@ const balanceQueryFunc = async(row) => {
   
   const res= await balanceQuery({"mercId":row.mercId})
   if(res.code === 0){
-    ElMessage({
-              type: 'success',
-              message: res.msg
-          })
+    let total = "金额："+res.msg
+    ElMessageBox.alert(total, '商户总额', {
+    // if you want to disable its autofocus
+    // autofocus: false,
+    confirmButtonText: 'OK',
+
+  })
   }
 }
 

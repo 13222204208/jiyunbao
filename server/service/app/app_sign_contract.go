@@ -1,6 +1,7 @@
 package app
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
@@ -163,6 +164,39 @@ func (appSignContractService *AppSignContractService) QueryAuthInfo(s app.AppSig
 	}
 }
 
+//商户余额查询
+func (appSignContractService *AppSignContractService) BalanceQuery(mercId string) (err error, total string) {
+	err, url := GetSetUrl(17)
+	if err != nil {
+		return errors.New("获取上送接口失败"), ""
+	}
+	info := map[string]string{
+		"merchant_usercode": mercId,
+	}
+	err, res := YsPost(url, info)
+	fmt.Println("返回的结果", res)
+	if err != nil {
+		return err, ""
+	} else {
+		err, result := BalanceQueryTrimPrefix(res)
+		if err != nil {
+			return errors.New("解析结果错误"), ""
+		}
+		fmt.Println("返回的数据", result)
+		code := result.Code
+		if code == "10000" {
+			detail := result.AccountDetail
+			//for _, value := range detail {
+			//	//tagname, _ := value.(map[string]interface{})
+			//	fmt.Println("aaaa", value["account_id"])
+			//}
+			fmt.Println("xf", detail)
+			return err, result.AccountTotalAmount
+		}
+		return err, ""
+	}
+}
+
 //修改商户号
 func UpdateMercId(id uint, mid string) {
 	var c app.AppSignContract
@@ -172,4 +206,13 @@ func UpdateMercId(id uint, mid string) {
 	} else {
 		fmt.Println("修改成功")
 	}
+}
+
+//去掉返回结果json数据中的 pre标签
+func BalanceQueryTrimPrefix(data string) (err error, s BalanceQueryResult) {
+	err = json.Unmarshal([]byte(data), &s)
+	if err != nil {
+		fmt.Println("解析错误的信息: %v", err)
+	}
+	return err, s
 }
