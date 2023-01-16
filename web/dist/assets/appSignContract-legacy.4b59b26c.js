@@ -1,4 +1,0 @@
-/*! 
- Build based on gin-vue-admin 
- Time : 1670837959000 */
-System.register(["./index-legacy.84915b21.js"],(function(t,n){"use strict";var e;return{setters:[function(t){e=t.s}],execute:function(){t("c",(function(t){return e({url:"/appSignContract/createAppSignContract",method:"post",data:t})})),t("a",(function(t){return e({url:"/appSignContract/deleteAppSignContract",method:"delete",data:t})})),t("d",(function(t){return e({url:"/appSignContract/deleteAppSignContractByIds",method:"delete",data:t})})),t("u",(function(t){return e({url:"/appSignContract/updateAppSignContract",method:"put",data:t})})),t("q",(function(t){return e({url:"/appSignContract/queryAuthInfo",method:"post",data:t})})),t("f",(function(t){return e({url:"/appSignContract/findAppSignContract",method:"get",params:t})})),t("g",(function(t){return e({url:"/appSignContract/getAppSignContractList",method:"get",params:t})}))}}}));

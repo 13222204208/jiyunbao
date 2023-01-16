@@ -50,3 +50,17 @@ type UpdatePhone struct {
 	NewPhone string `json:"newPhone" form:"newPhone"`
 	NewCode  string `json:"newCode" form:"newCode"`
 }
+
+//身份证识别
+type IdImage struct {
+	Image string `json:"image" form:"image"`
+	Side  string `json:"side" form:"side"`
+}
+
+type BankCard struct {
+	Image string `json:"image" form:"image"`
+}
+
+type Bus struct {
+	Image string `json:"image" form:"image"`
+}

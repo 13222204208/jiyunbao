@@ -59,6 +59,15 @@ func (s *AppUserRouter) InitAppUserRouter(Router *gin.RouterGroup) {
 		//获取用户信息
 		appUserPrivateRouter.GET("info", appUserApi.Info)
 
+		//身份证识别
+		appUserPrivateRouter.POST("idImage", appUserApi.IdImage)
+
+		//银行卡识别
+		appUserPrivateRouter.POST("bankCard", appUserApi.BankCard)
+
+		//营业执照识别
+		appUserPrivateRouter.POST("bus", appUserApi.Bus)
+
 		//发送手机验证码
 		appUserPublicRouter.POST("code", appUserApi.Code)
 	}

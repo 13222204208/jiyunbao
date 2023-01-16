@@ -359,3 +359,66 @@ func (appUserApi *AppUserApi) Info(c *gin.Context) {
 		response.OkWithData(gin.H{"info": info, "storeName": storeName}, c)
 	}
 }
+
+//获取用户身份证信息
+func (appUserApi *AppUserApi) IdImage(c *gin.Context) {
+	var p appReq.IdImage
+	err := c.ShouldBindJSON(&p)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if err := utils.Verify(p, utils.MiniIdImageVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if err, info := appUserService.IdImage(p.Image, p.Side); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"info": info}, c)
+	}
+}
+
+//获取银行卡信息
+func (appUserApi *AppUserApi) BankCard(c *gin.Context) {
+	var p appReq.BankCard
+	err := c.ShouldBindJSON(&p)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if err := utils.Verify(p, utils.MiniBankCardVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if err, info := appUserService.BankCard(p.Image); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"info": info}, c)
+	}
+}
+
+//获取营业执照信息
+func (appUserApi *AppUserApi) Bus(c *gin.Context) {
+	var p appReq.Bus
+	err := c.ShouldBindJSON(&p)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if err := utils.Verify(p, utils.MiniBusVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if err, info := appUserService.Bus(p.Image); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"info": info}, c)
+	}
+}

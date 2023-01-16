@@ -1,0 +1,44 @@
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:16:14.860	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/gorm.go:86	register table success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:16:14.954	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:39	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:16:15.383	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:139	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:16:15.384	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:36	server run success on 	{"address": ":9521"}
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:31:02.702	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/gorm.go:86	register table success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:31:02.812	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:39	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:31:02.892	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:139	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:31:02.892	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:36	server run success on 	{"address": ":9521"}
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:33:17.113	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/gorm.go:86	register table success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:33:17.223	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:39	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:33:17.377	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:139	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:33:17.379	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:36	server run success on 	{"address": ":9521"}
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:34:41.380	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/gorm.go:86	register table success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:34:41.479	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:39	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:34:41.537	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:139	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:34:41.539	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:36	server run success on 	{"address": ":9521"}
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:47:40.561	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/gorm.go:86	register table success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:47:40.659	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:39	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:47:40.699	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:139	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:47:40.701	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:36	server run success on 	{"address": ":9521"}
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:49:24.031	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/gorm.go:86	register table success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:49:24.207	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:39	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:49:24.240	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:139	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:49:24.240	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:36	server run success on 	{"address": ":9521"}
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:53:38.160	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/gorm.go:86	register table success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:53:38.279	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:39	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:53:38.321	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:139	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 16:53:38.321	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:36	server run success on 	{"address": ":9521"}
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 17:00:47.812	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/gorm.go:86	register table success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 17:00:47.910	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:39	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 17:00:47.974	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:139	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 17:00:47.976	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:36	server run success on 	{"address": ":9521"}
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 17:27:26.753	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/gorm.go:86	register table success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 17:27:26.912	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:39	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 17:27:26.985	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:139	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 17:27:26.985	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:36	server run success on 	{"address": ":9521"}
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 18:18:26.554	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/gorm.go:86	register table success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 18:18:26.652	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:39	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 18:18:26.708	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:139	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 18:18:26.708	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:36	server run success on 	{"address": ":9521"}
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 19:40:53.225	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/gorm.go:86	register table success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 19:40:53.319	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:39	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 19:40:53.514	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:139	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/01/07 - 19:40:53.514	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:36	server run success on 	{"address": ":9521"}

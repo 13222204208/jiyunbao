@@ -2,6 +2,8 @@ package app
 
 import (
 	"context"
+	"encoding/base64"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk"
@@ -10,11 +12,19 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app"
 	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
+	appRes "github.com/flipped-aurora/gin-vue-admin/server/model/app/response"
+
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/golang-jwt/jwt/v4"
 	"gorm.io/gorm"
+	"io/ioutil"
+	"net/http"
+	"net/url"
+	"os"
+	"strings"
 	"time"
+	"unsafe"
 )
 
 type AppUserService struct {
@@ -370,4 +380,151 @@ func (appUserService *AppUserService) ForgetPassword(f appReq.ForgetPassword) er
 			return err
 		}
 	}
+}
+
+const IdImageUrl = "http://apis.juhe.cn/idimage/verify"
+const IdImageKey = "5b85a06c65d01c9dcd75caf8edadf713"
+
+//用户身份证识别
+func (appUserService *AppUserService) IdImage(image, side string) (error, interface{}) {
+	baseImg, err := GetUrlImgBase64(image)
+	if err != nil {
+		return err, ""
+	}
+
+	postData := url.Values{}
+	postData.Add("key", IdImageKey)
+	postData.Add("image", baseImg)
+	postData.Add("side", side)
+	err, res := HttpPost(IdImageUrl, postData)
+	if err != nil {
+		return err, ""
+	}
+	if side == "front" {
+		var s appRes.IdImageFrontResult
+		err = json.Unmarshal([]byte(res), &s)
+		if err != nil {
+			fmt.Println("解析错误的信息: %v", err)
+		}
+		if s.ErrorCode == 0 {
+			return err, s.Result
+		} else {
+			return errors.New(s.Reason), ""
+		}
+	} else {
+		var s appRes.IdImageBackResult
+		err = json.Unmarshal([]byte(res), &s)
+		if err != nil {
+			fmt.Println("解析错误的信息: %v", err)
+		}
+		if s.ErrorCode == 0 {
+			return err, s.Result
+		} else {
+			return errors.New(s.Reason), ""
+		}
+	}
+
+}
+
+const BankCardUrl = "http://apis.juhe.cn/bankcardOcr/index"
+const BankCardKey = "7f129959929b7d8e57818b24e40d422f"
+
+//获取用户银行卡信息
+func (appUserService *AppUserService) BankCard(image string) (error, interface{}) {
+	baseImg, err := GetUrlImgBase64(image)
+	if err != nil {
+		return err, ""
+	}
+
+	postData := url.Values{}
+	postData.Add("key", BankCardKey)
+	postData.Add("image", baseImg)
+	err, res := HttpPost(BankCardUrl, postData)
+	if err != nil {
+		return err, ""
+	}
+	var s appRes.BankCardResult
+	err = json.Unmarshal([]byte(res), &s)
+	if err != nil {
+		fmt.Println("解析错误的信息: %v", err)
+	}
+	if s.ErrorCode == 0 {
+		return err, s.Result
+	} else {
+		return errors.New(s.Reason), ""
+	}
+}
+
+const BusUrl = "http://apis.juhe.cn/businessLicenseOcr/index"
+const BusKey = "3a074340171d0d3ff923fcec0e6761f5"
+
+//获取用户银行卡信息
+func (appUserService *AppUserService) Bus(image string) (error, interface{}) {
+	baseImg, err := GetUrlImgBase64(image)
+	if err != nil {
+		return err, ""
+	}
+
+	postData := url.Values{}
+	postData.Add("key", BusKey)
+	postData.Add("image", baseImg)
+	err, res := HttpPost(BusUrl, postData)
+	if err != nil {
+		return err, ""
+	}
+	var s appRes.BusResult
+	err = json.Unmarshal([]byte(res), &s)
+	if err != nil {
+		fmt.Printf("解析错误的信息: %v\n", err)
+	}
+	if s.ErrorCode == 0 {
+		return err, s.Result
+	} else {
+		return errors.New(s.Reason), ""
+	}
+}
+
+func HttpPost(url string, postData url.Values) (error, string) {
+
+	response, err := http.Post(url, "application/x-www-form-urlencoded", strings.NewReader(postData.Encode()))
+	if err != nil {
+		return err, ""
+	}
+	fmt.Println("结果:", response)
+	respBytes, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		fmt.Println("33333", err.Error())
+		return err, ""
+	}
+
+	//byte数组直接转成string，优化内存
+	str := (*string)(unsafe.Pointer(&respBytes))
+	fmt.Println("44444", *str)
+	return err, *str
+}
+
+func GetUrlImgBase64(path string) (baseImg string, err error) {
+	str, _ := os.Getwd()
+	path = str + "/" + path
+	fmt.Println("当前路径", path)
+	//获取本地文件
+	file, err := os.Open(path)
+	if err != nil {
+		err = errors.New("获取本地图片失败")
+		return
+	}
+	defer file.Close()
+	imgByte, _ := ioutil.ReadAll(file)
+
+	// 判断文件类型，生成一个前缀，拼接base64后可以直接粘贴到浏览器打开，不需要可以不用下面代码
+	//取图片类型
+	//mimeType := http.DetectContentType(imgByte)
+	//switch mimeType {
+	//case "image/jpeg":
+	//	baseImg = "data:image/jpeg;base64," + base64.StdEncoding.EncodeToString(imgByte)
+	//case "image/png":
+	//	baseImg = "data:image/png;base64," + base64.StdEncoding.EncodeToString(imgByte)
+	//}
+	baseImg = base64.StdEncoding.EncodeToString(imgByte)
+	return
 }

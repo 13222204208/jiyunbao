@@ -17,5 +17,11 @@ type MiniUserLogin struct {
 	Code     string `json:"code" form:"code"`
 	Avatar   string `json:"avatar" form:"avatar"`
 	Nickname string `json:"nickname" form:"nickname"`
-	MiniType string `json:"miniType" form:"miniType"`
+	MiniType int    `json:"miniType" form:"miniType"`
+}
+
+type GetPhone struct {
+	Code          string `json:"code" form:"code"` //微信
+	MiniType      int    `json:"miniType" form:"miniType"`
+	EncryptedData string `json:"encryptedData" form:"encryptedData"` //支付宝
 }

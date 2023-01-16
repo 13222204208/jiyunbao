@@ -2,21 +2,21 @@ package app
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/app"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-    appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-    "github.com/flipped-aurora/gin-vue-admin/server/service"
-    "github.com/gin-gonic/gin"
-    "go.uber.org/zap"
-    "github.com/flipped-aurora/gin-vue-admin/server/utils"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/app"
+	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	miniReq "github.com/flipped-aurora/gin-vue-admin/server/model/mini/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/service"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type AppCategoryApi struct {
 }
 
 var appCategoryService = service.ServiceGroupApp.AppServiceGroup.AppCategoryService
-
 
 // CreateAppCategory 创建AppCategory
 // @Tags AppCategory
@@ -34,16 +34,16 @@ func (appCategoryApi *AppCategoryApi) CreateAppCategory(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-    verify := utils.Rules{
-        "Title":{utils.NotEmpty()},
-        "CodeId":{utils.NotEmpty()},
-    }
+	verify := utils.Rules{
+		"Title":  {utils.NotEmpty()},
+		"CodeId": {utils.NotEmpty()},
+	}
 	if err := utils.Verify(appCategory, verify); err != nil {
-    		response.FailWithMessage(err.Error(), c)
-    		return
-    	}
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
 	if err := appCategoryService.CreateAppCategory(appCategory); err != nil {
-        global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
 		response.OkWithMessage("创建成功", c)
@@ -67,7 +67,7 @@ func (appCategoryApi *AppCategoryApi) DeleteAppCategory(c *gin.Context) {
 		return
 	}
 	if err := appCategoryService.DeleteAppCategory(appCategory); err != nil {
-        global.GVA_LOG.Error("删除失败!", zap.Error(err))
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {
 		response.OkWithMessage("删除成功", c)
@@ -85,13 +85,13 @@ func (appCategoryApi *AppCategoryApi) DeleteAppCategory(c *gin.Context) {
 // @Router /appCategory/deleteAppCategoryByIds [delete]
 func (appCategoryApi *AppCategoryApi) DeleteAppCategoryByIds(c *gin.Context) {
 	var IDS request.IdsReq
-    err := c.ShouldBindJSON(&IDS)
+	err := c.ShouldBindJSON(&IDS)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 	if err := appCategoryService.DeleteAppCategoryByIds(IDS); err != nil {
-        global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
+		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
 		response.OkWithMessage("批量删除成功", c)
@@ -114,16 +114,16 @@ func (appCategoryApi *AppCategoryApi) UpdateAppCategory(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-      verify := utils.Rules{
-          "Title":{utils.NotEmpty()},
-          "CodeId":{utils.NotEmpty()},
-      }
-    if err := utils.Verify(appCategory, verify); err != nil {
-      	response.FailWithMessage(err.Error(), c)
-      	return
-     }
+	verify := utils.Rules{
+		"Title":  {utils.NotEmpty()},
+		"CodeId": {utils.NotEmpty()},
+	}
+	if err := utils.Verify(appCategory, verify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
 	if err := appCategoryService.UpdateAppCategory(appCategory); err != nil {
-        global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
 		response.OkWithMessage("更新成功", c)
@@ -147,7 +147,7 @@ func (appCategoryApi *AppCategoryApi) FindAppCategory(c *gin.Context) {
 		return
 	}
 	if reappCategory, err := appCategoryService.GetAppCategory(appCategory.ID); err != nil {
-        global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
 		response.OkWithData(gin.H{"reappCategory": reappCategory}, c)
@@ -171,24 +171,34 @@ func (appCategoryApi *AppCategoryApi) GetAppCategoryList(c *gin.Context) {
 		return
 	}
 	if list, total, err := appCategoryService.GetAppCategoryInfoList(pageInfo); err != nil {
-	    global.GVA_LOG.Error("获取失败!", zap.Error(err))
-        response.FailWithMessage("获取失败", c)
-    } else {
-        response.OkWithDetailed(response.PageResult{
-            List:     list,
-            Total:    total,
-            Page:     pageInfo.Page,
-            PageSize: pageInfo.PageSize,
-        }, "获取成功", c)
-    }
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }
 
 func (appCategoryApi *AppCategoryApi) List(c *gin.Context) {
 
-    if err,list := appCategoryService.List(); err != nil {
-        global.GVA_LOG.Error("获取失败!", zap.Error(err))
-        response.FailWithMessage("获取失败", c)
-    } else {
-        response.OkWithDetailed(gin.H{"list":list}, "获取成功", c)
-    }
+	var p miniReq.Classify
+	err := c.ShouldBindQuery(&p)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if p.Pid == "" {
+		p.Pid = "0"
+	}
+
+	if list, err := appCategoryService.List(p.Pid); err != nil {
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(gin.H{"list": list}, "获取成功", c)
+	}
 }

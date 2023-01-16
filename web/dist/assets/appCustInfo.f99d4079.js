@@ -1,0 +1,4 @@
+/*! 
+ Build based on gin-vue-admin 
+ Time : 1673519692000 */
+import{s as t}from"./index.29e958a1.js";const a=a=>t({url:"/appCustInfo/createAppCustInfo",method:"post",data:a}),p=a=>t({url:"/appCustInfo/changeMercBaseInfo",method:"post",data:a}),s=a=>t({url:"/appCustInfo/addCustInfoApply",method:"post",data:a}),o=a=>t({url:"/appCustInfo/auditCustInfoApply",method:"post",data:a}),e=a=>t({url:"/appCustInfo/queryCustApply",method:"post",data:a}),u=a=>t({url:"/appCustInfo/deleteAppCustInfo",method:"delete",data:a}),d=a=>t({url:"/appCustInfo/deleteAppCustInfoByIds",method:"delete",data:a}),n=a=>t({url:"/appCustInfo/updateAppCustInfo",method:"put",data:a}),f=a=>t({url:"/appCustInfo/findAppCustInfo",method:"get",params:a}),I=a=>t({url:"/appCustInfo/getAppCustInfoList",method:"get",params:a});export{s as a,o as b,p as c,d,u as e,f,I as g,a as h,e as q,n as u};

@@ -7,22 +7,22 @@
        —
       <el-date-picker v-model="searchInfo.endCreatedAt" type="datetime" placeholder="结束时间"></el-date-picker>
       </el-form-item> -->
-        <el-form-item label="地区码">
+        <!-- <el-form-item label="地区码">
          <el-input v-model="searchInfo.cityCd" placeholder="搜索条件" />
 
         </el-form-item>
         <el-form-item label="行政地区码">
          <el-input v-model="searchInfo.areaCode" placeholder="搜索条件" />
 
-        </el-form-item>
-        <el-form-item label="地区码名称">
-         <el-input v-model="searchInfo.cityNm" placeholder="搜索条件" />
+        </el-form-item> -->
+        <el-form-item label="地区名称">
+         <el-input v-model="searchInfo.cityNm" input-style="width:400px" placeholder="在此输入各省、市、区（县）所要查询的城市名称条件" />
 
         </el-form-item>
-        <el-form-item label="父级地区代码">
+        <!-- <el-form-item label="父级地区代码">
          <el-input v-model="searchInfo.parentCityCd" placeholder="搜索条件" />
 
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
           <el-button size="small" icon="refresh" @click="onReset">重置</el-button>
@@ -59,7 +59,12 @@
         <el-table-column align="left" label="行政地区码" prop="areaCode" width="120" />
         <el-table-column align="left" label="是否可用" prop="isAble" width="120" />
         <el-table-column align="left" label="地区码名称" prop="cityNm" width="120" />
-        <el-table-column align="left" label="级别" prop="areaLevel" width="120" />
+        <el-table-column align="left" label="级别" prop="areaLevel" width="120" >
+          <template #default="scope">{{ scope.row.areaLevel == 1?"省":"" }}
+            {{ scope.row.areaLevel == 2?"市":"" }}
+            {{ scope.row.areaLevel == 3?"区/县":"" }}
+          </template>
+        </el-table-column>
         <el-table-column align="left" label="父级地区代码" prop="parentCityCd" width="120" />
         <!-- <el-table-column align="left" label="按钮组">
             <template #default="scope">

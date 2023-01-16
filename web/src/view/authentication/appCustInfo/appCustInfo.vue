@@ -75,7 +75,7 @@
         <el-table-column align="left" label="证件开始日期" prop="certBgn" width="120" />
         <el-table-column align="left" label="证件有效期" prop="certExpire" width="120" />
         <el-table-column align="left" label="法人姓名" prop="crpNm" width="120" />
-        <el-table-column align="left" label="法人手机号" prop="crpPhone" width="120" />
+        <el-table-column align="left" label="银行预留手机号" prop="crpPhone" width="120" />
         <el-table-column align="left" label="结算账号" prop="stlAccNo" width="120" />
         <el-table-column align="left" label="开户支行联行号" prop="bankSubCode" width="120" />
         <el-table-column align="left" label="结算账户类型" prop="stlAccType" width="120">
@@ -176,6 +176,39 @@
             <el-option v-for="(item,key) in mercTypeOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
+
+        <el-form-item label="营业执照号:" v-if="formData.mercType != 2"  prop="busNo" >
+          <el-input v-model="formData.busNo" :clearable="true"  placeholder="请输入营业执照号" />
+        </el-form-item>
+
+        <el-form-item label="营业执照名称:" v-if="formData.mercType != 2"    prop="busNm" >
+          <el-input v-model="formData.busNm	" :clearable="true"  placeholder="请输入名称" />
+        </el-form-item>
+        <el-form-item label="执照有效开始日期:" v-if="formData.mercType != 2"   prop="busCertBgn" >
+          <!-- <el-input v-model="formData.busCertBgn" :clearable="true"  placeholder="营业执照有效开始日期, 格式为yyyyMMdd" /> -->
+
+          <el-date-picker
+        v-model="formData.busCertBgn"
+        type="date"
+        format="YYYYMMDD"
+        value-format="YYYYMMDD"
+        placeholder="请选择日期"
+        :size="size"
+      />
+
+        </el-form-item>
+        <el-form-item label="营业执照有效期:" v-if="formData.mercType != 2"   prop="busCertExpire" >
+          <!-- <el-input v-model="formData.busCertExpire	" :clearable="true"  placeholder="营业执照有效开始日期, 格式为yyyyMMdd" /> -->
+          <el-date-picker
+        v-model="formData.busCertExpire"
+        type="date"
+        format="YYYYMMDD"
+        value-format="YYYYMMDD"
+        placeholder="长期则选择29991231"
+        :size="size"
+      />
+        </el-form-item>
+
         <el-form-item label="mcc码:"  prop="mccCd" >
           <el-input v-model="formData.mccCd" :clearable="true"  placeholder="请输入" width="500" >  
             <template #append>
@@ -208,15 +241,31 @@
           <el-input v-model="formData.crpCertType" :clearable="true"  placeholder="请输入" />
         </el-form-item> -->
         <el-form-item label="证件开始日期:"  prop="certBgn" >
-          <el-input v-model="formData.certBgn" :clearable="true"  placeholder="证件开始日期yyyyMMdd" />
+          <!-- <el-input v-model="formData.certBgn" :clearable="true"  placeholder="证件开始日期yyyyMMdd" /> -->
+          <el-date-picker
+        v-model="formData.certBgn"
+        type="date"
+        format="YYYYMMDD"
+        value-format="YYYYMMDD"
+        placeholder="请选择日期"
+        :size="size"
+      />
         </el-form-item>
         <el-form-item label="证件有效期:"  prop="certExpire" >
-          <el-input v-model="formData.certExpire" :clearable="true"  placeholder="日期格式yyyyMMdd ，如果为长期或者永久，请填值“29991231”" />
+          <!-- <el-input v-model="formData.certExpire" :clearable="true"  placeholder="日期格式yyyyMMdd ，如果为长期或者永久，请填值“29991231”" /> -->
+          <el-date-picker
+        v-model="formData.certExpire"
+        type="date"
+        placeholder="长期则填值“29991231”"
+        format="YYYYMMDD"
+        value-format="YYYYMMDD"
+        :size="size"
+      />
         </el-form-item>
         <el-form-item label="法人姓名:"  prop="crpNm" >
           <el-input v-model="formData.crpNm" :clearable="true"  placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="法人手机号:"  prop="crpPhone" >
+        <el-form-item label="银行预留手机号:"  prop="crpPhone" >
           <el-input v-model="formData.crpPhone" :clearable="true"  placeholder="请输入" />
         </el-form-item>
         <el-form-item label="结算账号:"  prop="stlAccNo" >
@@ -327,6 +376,11 @@ const formData = ref({
         busCityCode: '',
         busAreaCode: '',
         busAddr: '',
+        busNo: '',
+        busNm: '',
+        busCertBgn: '',
+        busCertExpire: '',
+
         })
 
         //验证行号查询数据
@@ -717,6 +771,10 @@ const closeDialog = () => {
         busCityCode: '',
         busAreaCode: '',
         busAddr: '',
+        busNo: '',
+        busNm: '',
+        busCertBgn: '',
+        busCertExpire: '',
         }
 }
 // 弹窗确定

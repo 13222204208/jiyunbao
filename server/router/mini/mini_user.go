@@ -15,6 +15,7 @@ func (s *MiniUserRouter) InitMiniUserRouter(Router *gin.RouterGroup) {
 	miniUserRouterWithoutRecord := Router.Group("miniUser")
 
 	miniUserPublicRouter := Router.Group("miniUser")
+	miniUserPrivateRouter := Router.Group("miniUser").Use(middleware.JWTAuthMiddlewareMini())
 	var miniUserApi = v1.ApiGroupApp.MiniApiGroup.MiniUserApi
 	{
 		miniUserRouter.POST("createMiniUser", miniUserApi.CreateMiniUser)             // 新建MiniUser
@@ -30,5 +31,13 @@ func (s *MiniUserRouter) InitMiniUserRouter(Router *gin.RouterGroup) {
 	{
 		//小程序用户登陆
 		miniUserPublicRouter.POST("login", miniUserApi.Login)
+
+	}
+
+	{
+		//获取小程序用户信息
+		miniUserPrivateRouter.GET("info", miniUserApi.Info)
+		//获取小程序手机号
+		miniUserPrivateRouter.POST("getPhone", miniUserApi.GetPhone)
 	}
 }

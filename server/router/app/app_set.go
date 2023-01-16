@@ -14,7 +14,7 @@ func (s *AppSetRouter) InitAppSetRouter(Router *gin.RouterGroup) {
 	appSetRouter := Router.Group("appSet").Use(middleware.OperationRecord())
 	appSetRouterWithoutRecord := Router.Group("appSet")
 
-	appSetPublicRouter := Router.Group("set")
+	appSetPrivateRouter := Router.Group("set").Use(middleware.JWTAuthMiddleware())
 
 	var appSetApi = v1.ApiGroupApp.AppApiGroup.AppSetApi
 	{
@@ -29,7 +29,7 @@ func (s *AppSetRouter) InitAppSetRouter(Router *gin.RouterGroup) {
 	}
 
 	{
-		//url生成 二维码图片
-		appSetPublicRouter.POST("qrcode", appSetApi.Qrcode)
+		//获取我的 二维码图片
+		appSetPrivateRouter.GET("qrcode", appSetApi.Qrcode)
 	}
 }

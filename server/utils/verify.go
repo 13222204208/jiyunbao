@@ -18,7 +18,7 @@ var (
 	SetUserAuthorityVerify = Rules{"AuthorityId": {NotEmpty()}}
 
 	//app用户注册
-	AppUserRegister = Rules{"NickName": {NotEmpty()}, "Phone": {RegexpMatch(`^1([38][0-9]|14[579]|5[^4]|16[6]|7[1-35-8]|9[189])\d{8}$`)}, "Password": {NotEmpty()}, "Code": {NotEmpty()}}
+	AppUserRegister = Rules{"NickName": {NotEmpty()}, "CategoryId": {NotEmpty()}, "Phone": {RegexpMatch(`^1([38][0-9]|14[579]|5[^4]|16[6]|7[1-35-8]|9[189])\d{8}$`)}, "Password": {NotEmpty()}, "Code": {NotEmpty()}}
 
 	//app用户修改密码
 	AppUserUpdatePassword = Rules{"OldPassword": {NotEmpty()}, "NewPassword": {NotEmpty()}}
@@ -59,10 +59,43 @@ var (
 		"BusAddr":        {NotEmpty()},
 	}
 
-	MiniUserLoginVerify = Rules{
+	//app支付认证的资料上传
+	AppCustInfoVerify = Rules{
+		"MercName":    {NotEmpty()},
+		"MercType":    {NotEmpty()},
+		"ContactMail": {NotEmpty()},
+		"CrpCertNo":   {NotEmpty()},
+		"CertBgn":     {NotEmpty()},
+		"CertExpire":  {NotEmpty()},
+		"CrpNm":       {NotEmpty()},
+		"CrpPhone":    {NotEmpty()},
+		"StlAccNo":    {NotEmpty()},
+		"StlAccType":  {NotEmpty()},
+		"BusAddr":     {NotEmpty()},
+	}
+
+	MiniWeChatUserLoginVerify = Rules{
 		"Code":     {NotEmpty()},
 		"Avatar":   {NotEmpty()},
 		"Nickname": {NotEmpty()},
 		"MiniType": {NotEmpty()},
+	}
+
+	MiniAliPayUserLoginVerify = Rules{
+		"Code":     {NotEmpty()},
+		"MiniType": {NotEmpty()},
+	}
+
+	MiniIdImageVerify = Rules{
+		"Image": {NotEmpty()},
+		"Side":  {NotEmpty()},
+	}
+
+	MiniBankCardVerify = Rules{
+		"Image": {NotEmpty()},
+	}
+
+	MiniBusVerify = Rules{
+		"Image": {NotEmpty()},
 	}
 )

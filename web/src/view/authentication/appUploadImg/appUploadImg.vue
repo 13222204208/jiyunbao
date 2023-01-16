@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="gva-search-box">
+    <!-- <div class="gva-search-box">
       <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
       <el-form-item label="创建时间">
       <el-date-picker v-model="searchInfo.startCreatedAt" type="datetime" placeholder="开始时间"></el-date-picker>
@@ -12,7 +12,7 @@
           <el-button size="small" icon="refresh" @click="onReset">重置</el-button>
         </el-form-item>
       </el-form>
-    </div>
+    </div> -->
     <div class="gva-table-box">
         <div class="gva-btn-list">
             <el-button size="small" type="primary" icon="plus" @click="openDialog">新增</el-button>
@@ -23,7 +23,7 @@
                 <el-button size="small" type="primary" @click="onDelete">确定</el-button>
             </div>
             <template #reference>
-                <el-button icon="delete" size="small" style="margin-left: 10px;" :disabled="!multipleSelection.length" @click="deleteVisible = true">删除</el-button>
+              <el-button type="danger" @click="imgExplain" >图片上传说明</el-button>
             </template>
             </el-popover>
         </div>
@@ -50,14 +50,16 @@
           <template #default="scope">
           <el-image
             style="width: 100px; height: 100px"
-            :src="'https://jiyunbao.vvv5g.com/api/'+scope.row.imgUrl"
+            :src=" urlPath+'/'+scope.row.imgUrl"
             fit="cover"
           />
         </template>
         </el-table-column>
-        <el-table-column align="left" label="入网申请流水号" prop="sysFlowId" width="120" />
+        <el-table-column align="left" label="入网申请流水号" prop="sysFlowId" width="180" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
+              <el-button type="primary" link icon="edit" size="small" class="table-button" @click="imgSubmitFunc(scope.row)">图片上送</el-button>
+
             <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateAppUploadImgFunc(scope.row)">变更图片</el-button>
             <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
             </template>
@@ -148,7 +150,8 @@ import {
   deleteAppUploadImgByIds,
   updateAppUploadImg,
   findAppUploadImg,
-  getAppUploadImgList
+  getAppUploadImgList,
+  imgSubmit,
 } from '@/api/appUploadImg'
 
 // 全量引入格式化工具 请按需保留
@@ -172,6 +175,9 @@ router.isReady().then(() => {
   formData.value.custInfoId = route.query.id
 })
 
+const imgExplain = () => {
+  window.open("https://jiyunbao.vvv5g.com/api/uploads/explain.jpg","_blank")
+}
 //图片上传
 const enterImg = async(url) => {
   console.log('图片地址',url)
@@ -333,6 +339,18 @@ const deleteRow = (row) => {
         })
     }
 
+    //图片上送
+  const imgSubmitFunc = async(row) => {
+    const result = await imgSubmit(row)
+        console.log("结果确认",result.code)
+        if (result.code === 0) {
+                ElMessage({
+                  type: 'success',
+                  message: result.msg
+                })
+              }
+    }
+  
 
 // 批量删除控制标记
 const deleteVisible = ref(false)

@@ -166,6 +166,17 @@ func (miniUserApi *MiniUserApi) GetMiniUserList(c *gin.Context) {
 	}
 }
 
+//根据用户ID获取用户信息
+func (miniUserApi *MiniUserApi) Info(c *gin.Context) {
+	uid := c.MustGet("id").(uint)
+	if info, err := miniUserService.GetMiniUser(uid); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage("查询失败", c)
+	} else {
+		response.OkWithData(gin.H{"info": info}, c)
+	}
+}
+
 //小程序用户登陆
 func (miniUserApi *MiniUserApi) Login(c *gin.Context) {
 	var m miniReq.MiniUserLogin
@@ -175,13 +186,75 @@ func (miniUserApi *MiniUserApi) Login(c *gin.Context) {
 		return
 	}
 
-	if err := utils.Verify(m, utils.MiniUserLoginVerify); err != nil {
+	if m.MiniType != 1 && m.MiniType != 2 {
+		response.FailWithMessage("请填写正确的miniType", c)
+		return
+	}
+	//如果是微信小程序登陆
+	if m.MiniType == 1 {
+		if err := utils.Verify(m, utils.MiniWeChatUserLoginVerify); err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
+
+		if err, info := miniUserService.WeChatLogin(m.Code, m.Avatar, m.Nickname); err != nil {
+			response.FailWithMessage(err.Error(), c)
+		} else {
+			response.OkWithData(gin.H{"userinfo": info}, c)
+
+		}
+	}
+
+	if m.MiniType == 2 {
+		if err := utils.Verify(m, utils.MiniAliPayUserLoginVerify); err != nil {
+			response.FailWithMessage(err.Error(), c)
+			return
+		}
+
+		if err, info := miniUserService.AliPayLogin(m.Code); err != nil {
+			response.FailWithMessage(err.Error(), c)
+		} else {
+			response.OkWithData(gin.H{"userinfo": info}, c)
+
+		}
+	}
+}
+
+//获取手机号
+func (miniUserApi *MiniUserApi) GetPhone(c *gin.Context) {
+	var m miniReq.GetPhone
+	err := c.ShouldBindJSON(&m)
+	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	miniType := m.MiniType
+	if miniType != 1 && miniType != 2 {
+		response.FailWithMessage("请填写正确的miniType", c)
+		return
+	}
+	uid := c.MustGet("id").(uint)
+	if miniType == 1 {
+		if m.Code == "" {
+			response.FailWithMessage("请填写正确的code", c)
+			return
+		}
+		if err := miniUserService.GetWeChatPhone(m.Code, uid); err != nil {
+			response.FailWithMessage(err.Error(), c)
+		} else {
+			response.OkWithMessage("保存手机号成功", c)
+		}
+	}
 
-	//如果是微信小程序登陆
-	//if m.MiniType == 1 {
-	//
-	//}
+	if miniType == 2 {
+		if m.EncryptedData == "" {
+			response.FailWithMessage("请填写正确的EncryptedData", c)
+			return
+		}
+		if err := miniUserService.GetAliPayPhone(m.EncryptedData, uid); err != nil {
+			response.FailWithMessage(err.Error(), c)
+		} else {
+			response.OkWithMessage("保存手机号成功", c)
+		}
+	}
 }

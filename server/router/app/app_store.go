@@ -14,7 +14,7 @@ func (s *AppStoreRouter) InitAppStoreRouter(Router *gin.RouterGroup) {
 	appStoreRouter := Router.Group("appStore").Use(middleware.OperationRecord())
 	appStoreRouterWithoutRecord := Router.Group("appStore")
 
-	appStorePublicRouter := Router.Group("store").Use(middleware.JWTAuthMiddleware())
+	appStorePrivateRouter := Router.Group("store").Use(middleware.JWTAuthMiddleware())
 	var appStoreApi = v1.ApiGroupApp.AppApiGroup.AppStoreApi
 	{
 		appStoreRouter.POST("createAppStore", appStoreApi.CreateAppStore)             // 新建AppStore
@@ -28,6 +28,7 @@ func (s *AppStoreRouter) InitAppStoreRouter(Router *gin.RouterGroup) {
 	}
 	//门店设置
 	{
-		appStorePublicRouter.PUT("edit", appStoreApi.Edit)
+		appStorePrivateRouter.PUT("edit", appStoreApi.Edit)
+		appStorePrivateRouter.GET("detail", appStoreApi.Detail)
 	}
 }

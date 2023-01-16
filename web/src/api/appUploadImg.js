@@ -80,6 +80,15 @@ export const findAppUploadImg = (params) => {
   })
 }
 
+//图片上送
+export const imgSubmit = (data) => {
+  return service({
+    url: '/appUploadImg/imgSubmit',
+    method: 'post',
+    data
+  })
+}
+
 // @Tags AppUploadImg
 // @Summary 分页获取AppUploadImg列表
 // @Security ApiKeyAuth

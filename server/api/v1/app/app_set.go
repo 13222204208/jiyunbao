@@ -7,7 +7,6 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/service"
-	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -168,22 +167,10 @@ func (appSetApi *AppSetApi) GetAppSetList(c *gin.Context) {
 
 //url生成二维码
 func (appSetApi *AppSetApi) Qrcode(c *gin.Context) {
-	var q appReq.Qrcode
-	err := c.ShouldBindJSON(&q)
 
-	if err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-	verify := utils.Rules{
-		"Url": {utils.NotEmpty()},
-	}
-	if err := utils.Verify(q, verify); err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
+	uid := c.MustGet("id").(uint)
 
-	if err, imgUrl := appSetService.Qrcode(q.Url); err != nil {
+	if err, imgUrl := appSetService.Qrcode(uid); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	} else {

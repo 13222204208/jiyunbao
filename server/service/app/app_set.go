@@ -1,6 +1,7 @@
 package app
 
 import (
+	"errors"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app"
@@ -69,7 +70,24 @@ func (appSetService *AppSetService) GetAppSetInfoList(info appReq.AppSetSearch) 
 }
 
 //url生成二维码
-func (appSetService *AppSetService) Qrcode(url string) (err error, imgUrl string) {
+func (appSetService *AppSetService) Qrcode(uid uint) (err error, imgUrl string) {
+	var c app.AppCustInfo
+	global.GVA_DB.Where("uid = ?", uid).First(&c)
+	if c.CustId == "" {
+		return errors.New("获取商户信息失败"), ""
+	}
+	fmt.Println("接收的商户", uid)
+	mercName := c.MercName //商店名称
+	var s app.AppSignContract
+	global.GVA_DB.Where("cust_id = ?", c.CustId).First(&s)
+	var url string
+	if s.MercId == "" {
+		return errors.New("商户没有签约成功"), ""
+	} else {
+		url = "https://jiyunbao.vvv5g.com/pay.html?mercName=" + mercName + "&mercId=" + s.MercId
+	}
+	fmt.Println("接收的url", url)
+
 	err, imgUrl = CreateQrcode(url)
 	return err, imgUrl
 }
@@ -104,7 +122,7 @@ func CreateQrcode(qrcodeUrl string) (err error, imgUrl string) {
 	imgUrl = imgUrl[36:]
 
 	//EncryptByPub([]byte("12321323232"))
-
+	fmt.Println("生成 二维码的状态", err)
 	if err != nil {
 		return err, ""
 	} else {

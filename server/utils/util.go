@@ -81,6 +81,21 @@ func ReqId() string {
 	return code
 }
 
+func OrderNo() string {
+
+	hour := time.Now().Hour()
+	minute := time.Now().Minute()
+	second := time.Now().Second()
+	startTimestamp := time.Now().Unix()
+	//获得时间戳
+	startTimeStr := time.Unix(startTimestamp, 0).Format("20060102") //把时间戳转换成时间,并格式化为年月日
+	nowTime := sup(hour, 2) + sup(minute, 2) + sup(second, 2)
+
+	code := startTimeStr + nowTime + GenerateSmsCode(4)
+
+	return code
+}
+
 // GenerateSmsCode 生成短信验证码;length代表验证码的长度
 func GenerateSmsCode(length int) string {
 	numeric := [9]byte{1, 2, 3, 4, 5, 6, 7, 8, 9}

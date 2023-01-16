@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app"
 	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
@@ -43,6 +44,31 @@ func (appCustInfoApi *AppCustInfoApi) CreateAppCustInfo(c *gin.Context) {
 	if err := appCustInfoService.CreateAppCustInfo(appCustInfo); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
+	} else {
+		response.OkWithMessage("创建成功", c)
+	}
+}
+
+//商户端提交的支付认证
+func (appCustInfoApi *AppCustInfoApi) Attestation(c *gin.Context) {
+	var appCustInfo app.AppCustInfo
+	err := c.ShouldBindJSON(&appCustInfo)
+	fmt.Println("接收的数据", appCustInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if err := utils.Verify(appCustInfo, utils.AppCustInfoVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if len(appCustInfo.CrpCertNo) != 18 {
+		response.FailWithMessage("法人证件号不正确", c)
+	}
+	appCustInfo.Uid = c.MustGet("id").(uint)
+	if err := appCustInfoService.Attestation(appCustInfo); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
 	} else {
 		response.OkWithMessage("创建成功", c)
 	}
@@ -125,12 +151,13 @@ func (appCustInfoApi *AppCustInfoApi) UpdateAppCustInfo(c *gin.Context) {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
+		response.OkWithMessage("修改资料成功", c)
 
-		if err := appCustInfoService.ModifyCustInfoApply(appCustInfo.ID); err != nil {
-			response.FailWithMessage(err.Error(), c)
-		} else {
-			response.OkWithMessage("修改资料成功", c)
-		}
+		//if err := appCustInfoService.ModifyCustInfoApply(appCustInfo.ID); err != nil {
+		//	response.FailWithMessage(err.Error(), c)
+		//} else {
+		//	response.OkWithMessage("修改资料成功", c)
+		//}
 
 	}
 }

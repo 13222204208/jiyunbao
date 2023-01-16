@@ -86,6 +86,12 @@ func (appStoreService *AppStoreService) Edit(store app.AppStore) (err error) {
 	}
 }
 
+//门店详情
+func (appStoreService *AppStoreService) Detail(uid uint) (err error, store app.AppStore) {
+	err = global.GVA_DB.Where("uid = ?", uid).First(&store).Error
+	return
+}
+
 //验证用户是否已经提交支付认证
 func VerifyAppStoreSet(uid uint) (err error, appStore app.AppStore) {
 	if !errors.Is(global.GVA_DB.Where("uid = ?", uid).First(&appStore).Error, gorm.ErrRecordNotFound) {

@@ -10,6 +10,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 	"regexp"
 	"strconv"
 )
@@ -26,6 +27,21 @@ func (appCustInfoService *AppCustInfoService) CreateAppCustInfo(appCustInfo app.
 	appCustInfo.NotifyUrl = GetAppSet().NotifyUrl
 	appCustInfo.ReqId = ReqId //流水号
 	err = global.GVA_DB.Create(&appCustInfo).Error
+	return err
+}
+
+//app 端提交的支付认证
+func (appCustInfoService *AppCustInfoService) Attestation(appCustInfo app.AppCustInfo) (err error) {
+	err, _ = VerifyAppCustAttestation(appCustInfo.Uid)
+	if err != nil {
+		return err
+	}
+	appCustInfo.NotifyUrl = GetAppSet().NotifyUrl
+	appCustInfo.ReqId = ReqId //流水号
+	err = global.GVA_DB.Create(&appCustInfo).Error
+	if err == nil {
+		SaveToUploadImage(&appCustInfo)
+	}
 	return err
 }
 
@@ -117,6 +133,10 @@ func GetCustInfo(id uint) (err error, info map[string]string) {
 		"bankSubCode":    appCustInfo.BankSubCode,
 		"openCertNo":     appCustInfo.OpenCertNo,
 		"stlAccType":     strconv.Itoa(*appCustInfo.StlAccType),
+		"busNo":          appCustInfo.BusNo,
+		"busNm":          appCustInfo.BusNm,
+		"busCertBgn":     appCustInfo.BusCertBgn,
+		"busCertExpire":  appCustInfo.BusCertExpire,
 		"busProviceCode": appCustInfo.BusProviceCode,
 		"busCityCode":    appCustInfo.BusCityCode,
 		"busAreaCode":    appCustInfo.BusAreaCode,
@@ -327,4 +347,59 @@ func saveChangeSysFlowId(custId, changeSysFlowId string) {
 	if err != nil {
 		global.GVA_LOG.Error("保存变更申请流水号失败!", zap.Error(err))
 	}
+}
+
+//验证用户是否已经提交支付认证
+func VerifyAppCustAttestation(uid uint) (err error, c app.AppCustInfo) {
+	if !errors.Is(global.GVA_DB.Where("uid = ?", uid).First(&c).Error, gorm.ErrRecordNotFound) {
+		return errors.New("已经提交认证"), c
+	}
+	return
+}
+
+//保存图片到upload_img
+func SaveToUploadImage(c *app.AppCustInfo) {
+	fmt.Println("图片", c.BusImage)
+	cid := int(c.ID)
+	if c.BusImage != "" {
+		SaveImage(c.BusImage, cid, 1, "A001")
+	}
+
+	if c.CardFront != "" {
+		SaveImage(c.CardFront, cid, 2, "A002")
+	}
+
+	if c.CardReverse != "" {
+		SaveImage(c.CardReverse, cid, 3, "A003")
+	}
+
+	if c.BankFrontImg != "" {
+		SaveImage(c.BankFrontImg, cid, 4, "A004")
+	}
+
+	if c.BankReverseImg != "" {
+		SaveImage(c.BankReverseImg, cid, 5, "A005")
+	}
+
+	if c.StoreHeadImg != "" {
+		SaveImage(c.StoreHeadImg, cid, 6, "A006")
+	}
+
+	if c.StoreImg != "" {
+		SaveImage(c.StoreImg, cid, 7, "A007")
+	}
+
+	if c.StoreCashierImg != "" {
+		SaveImage(c.StoreCashierImg, cid, 8, "A008")
+	}
+
+}
+
+func SaveImage(img string, cid, t int, n string) {
+	var i app.AppUploadImg
+	i.ImgUrl = img
+	i.PicType = &t
+	i.PicTypeName = n
+	i.CustInfoId = &cid
+	global.GVA_DB.Create(&i)
 }

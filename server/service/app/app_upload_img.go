@@ -24,19 +24,32 @@ func (appUploadImgService *AppUploadImgService) CreateAppUploadImg(appUploadImg 
 		return err
 	}
 
-	err, info := GetCustInfo(uint(custInfoId))
-	if err != nil {
-		return errors.New("获取商户进件数据失败")
-	}
-	appUploadImg.ReqId = info["reqId"]
-	appUploadImg.SysFlowId = info["sysFlowId"]
 	appUploadImg.PicTypeName = transitionImgType(*appUploadImg.PicType)
 
 	err = global.GVA_DB.Create(&appUploadImg).Error
 
-	if err == nil {
-		err = SmscUpload(appUploadImg.ReqId, appUploadImg.SysFlowId, appUploadImg.PicTypeName, appUploadImg.ImgUrl)
+	//if err == nil {
+	//	err = SmscUpload(appUploadImg.ReqId, appUploadImg.SysFlowId, appUploadImg.PicTypeName, appUploadImg.ImgUrl)
+	//}
+	return err
+}
+
+//图片上送
+func (appUploadImgService *AppUploadImgService) ImgSubmit(id uint) (err error) {
+	var i app.AppUploadImg
+	global.GVA_DB.Where("id = ?", id).First(&i)
+	if i.ImgUrl == "" {
+		return errors.New("查找不到数据")
 	}
+	custInfoId := *i.CustInfoId
+	err, info := GetCustInfo(uint(custInfoId))
+	if err != nil {
+		return errors.New("获取商户进件数据失败")
+	}
+	i.ReqId = info["reqId"]
+	i.SysFlowId = info["sysFlowId"]
+	global.GVA_DB.Model(&i).Where("id = ?", id).Updates(map[string]interface{}{"req_id": info["reqId"], "sys_flow_id": info["sysFlowId"]})
+	err = SmscUpload(i.ReqId, i.SysFlowId, i.PicTypeName, i.ImgUrl)
 	return err
 }
 

@@ -181,3 +181,13 @@ func (appStoreApi *AppStoreApi) Edit(c *gin.Context) {
 		response.OkWithMessage("成功", c)
 	}
 }
+
+//门店详情
+func (appStoreApi *AppStoreApi) Detail(c *gin.Context) {
+	uid := c.MustGet("id").(uint)
+	if err, info := appStoreService.Detail(uid); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"info": info}, c)
+	}
+}

@@ -11,10 +11,11 @@ type MiniUser struct {
 	Nickname      string `json:"nickname" form:"nickname" gorm:"column:nickname;comment:昵称;"`
 	Avatar        string `json:"avatar" form:"avatar" gorm:"column:avatar;comment:;"`
 	UserNum       string `json:"userNum" form:"userNum" gorm:"column:user_num;comment:联保代码;"`
-	MiniType      *int   `json:"miniType" form:"miniType" gorm:"column:mini_type;comment:;"`
+	MiniType      int    `json:"miniType" form:"miniType" gorm:"column:mini_type;comment:;"`
 	Openid        string `json:"openid" form:"openid" gorm:"column:openid;comment:;"`
 	Phone         string `json:"phone" form:"phone" gorm:"column:phone;comment:;"`
 	RealNameState *int   `json:"realNameState" form:"realNameState" gorm:"column:real_name_state;comment:实名状态;default:0"`
+	Token         string `json:"token" form:"token" gorm:"column:token;type:text"`
 }
 
 // TableName MiniUser 表名

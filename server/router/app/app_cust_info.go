@@ -12,6 +12,9 @@ type AppCustInfoRouter struct {
 // InitAppCustInfoRouter 初始化 AppCustInfo 路由信息
 func (s *AppCustInfoRouter) InitAppCustInfoRouter(Router *gin.RouterGroup) {
 	appCustInfoRouter := Router.Group("appCustInfo").Use(middleware.OperationRecord())
+
+	appCustInfoPrivateRouter := Router.Group("cust").Use(middleware.JWTAuthMiddleware())
+
 	appCustInfoRouterWithoutRecord := Router.Group("appCustInfo")
 	var appCustInfoApi = v1.ApiGroupApp.AppApiGroup.AppCustInfoApi
 	{
@@ -36,5 +39,10 @@ func (s *AppCustInfoRouter) InitAppCustInfoRouter(Router *gin.RouterGroup) {
 		appCustInfoRouterWithoutRecord.GET("findAppCustInfo", appCustInfoApi.FindAppCustInfo)       // 根据ID获取AppCustInfo
 		appCustInfoRouterWithoutRecord.GET("getAppCustInfoList", appCustInfoApi.GetAppCustInfoList) // 获取AppCustInfo列表
 
+	}
+
+	{
+		//商户端支付认证
+		appCustInfoPrivateRouter.POST("attestation", appCustInfoApi.Attestation)
 	}
 }

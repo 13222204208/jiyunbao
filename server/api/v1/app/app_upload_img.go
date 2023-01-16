@@ -49,6 +49,29 @@ func (appUploadImgApi *AppUploadImgApi) CreateAppUploadImg(c *gin.Context) {
 	}
 }
 
+//图片上送
+func (appUploadImgApi *AppUploadImgApi) ImgSubmit(c *gin.Context) {
+	var appUploadImg app.AppUploadImg
+	err := c.ShouldBindJSON(&appUploadImg)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	verify := utils.Rules{
+		"ID": {utils.NotEmpty()},
+	}
+	if err := utils.Verify(appUploadImg, verify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if err := appUploadImgService.ImgSubmit(appUploadImg.ID); err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithMessage("上送成功", c)
+	}
+}
+
 // DeleteAppUploadImg 删除AppUploadImg
 // @Tags AppUploadImg
 // @Summary 删除AppUploadImg
