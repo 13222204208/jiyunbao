@@ -3,6 +3,7 @@ module github.com/flipped-aurora/gin-vue-admin/server
 go 1.16
 
 require (
+	github.com/13222204208/tool v0.0.0-20230116042038-c384b1f70262 // indirect
 	github.com/agclqq/goencryption v0.0.0-20220916113738-68f6c6ffc854
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1820

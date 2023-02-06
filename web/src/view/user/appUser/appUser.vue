@@ -66,6 +66,16 @@
             {{ filterDict(scope.row.mchType,mchTypeOptions) }}
             </template>
         </el-table-column>
+
+       <el-table-column align="left" label="支付认证状态" prop="payState" width="120">
+            <template #default="scope">
+            {{ scope.row.payState == 0 ?"未认证":"" }}
+            {{ scope.row.payState == 1 ?"审核中":"" }}
+            {{ scope.row.payState == 2 ?"认证成功":"" }}
+            {{ scope.row.payState == 3 ?"认证未通过":"" }}
+
+            </template>
+        </el-table-column>
         <!-- <el-table-column align="left" label="商户入驻协议" prop="agreement" width="120" />
         <el-table-column align="left" label="头像" prop="avatar" width="120" />
         <el-table-column align="left" label="微信" prop="wechat" width="120" /> -->

@@ -1,0 +1,4 @@
+[github.com/flipped-aurora/gin-vue-admin/server]2023/02/01 - 13:00:11.852	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/gorm.go:86	register table success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/02/01 - 13:00:11.950	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:39	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2023/02/01 - 13:00:12.063	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:141	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/02/01 - 13:00:12.063	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:36	server run success on 	{"address": ":9521"}

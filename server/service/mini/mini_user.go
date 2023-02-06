@@ -177,6 +177,36 @@ func (miniUserService *MiniUserService) GetWeChatPhone(code string, uid uint) (e
 	return
 }
 
+//获取用户的商户码和贵宾码
+func (miniUserService *MiniUserService) GetQrcode(t int) (err error, img string) {
+	if t == 1 {
+		img = "uploads/qrcode/merchant.png"
+		return err, img
+	} else {
+		img = "uploads/qrcode/vip.png"
+		return err, img
+	}
+}
+
+type MoneyDetail struct {
+	ID      uint    `json:"ID"`
+	Way     string  `json:"way"`
+	Time    string  `json:"time"`
+	Money   float64 `json:"money"`
+	Balance float64 `json:"balance"`
+}
+
+//获取用户零钱及明细
+func (miniUserService *MiniUserService) GetMoneyDetail() (err error, list []*MoneyDetail) {
+	list = append(list, &MoneyDetail{
+		1, "提现金额", "2023-01-31", 0.00, 0.00,
+	})
+	list = append(list, &MoneyDetail{
+		2, "推广红包", "2023-01-31", 0.00, 0.00,
+	})
+	return err, list
+}
+
 // GenToken 生成JWT
 func genToken(id uint, userNum string) (string, error) {
 	// 创建一个我们自己的声明

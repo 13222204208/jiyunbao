@@ -11,6 +11,7 @@ type AppStore struct {
 	Uid             uint   `json:"uid" form:"uid" gorm:"column:uid;comment:门店用户;"`
 	StoreName       string `json:"storeName" form:"storeName" gorm:"column:store_name;comment:门店名称;"`
 	StoreAvatar     string `json:"storeAvatar" form:"storeAvatar" gorm:"column:store_avatar;comment:门店头像;"`
+	StoreBanner     string `json:"storeBanner" form:"storeBanner" gorm:"column:store_banner;comment:门店牌匾"`
 	Category        string `json:"category" form:"category" gorm:"column:category;comment:主营品类;"`
 	StorePhone      string `json:"storePhone" form:"storePhone" gorm:"column:store_phone;comment:门店电话;"`
 	StoreAddress    string `json:"storeAddress" form:"storeAddress" gorm:"column:store_address;comment:门店地址;"`

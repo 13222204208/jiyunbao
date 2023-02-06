@@ -1,4 +1,0 @@
-/*! 
- Build based on gin-vue-admin 
- Time : 1673519692000 */
-System.register(["./index-legacy.d998ce18.js"],(function(t,e){"use strict";var n;return{setters:[function(t){n=t.s}],execute:function(){t("c",(function(t){return n({url:"/appFacilitatingAgency/createAppFacilitatingAgency",method:"post",data:t})})),t("a",(function(t){return n({url:"/appFacilitatingAgency/deleteAppFacilitatingAgency",method:"delete",data:t})})),t("d",(function(t){return n({url:"/appFacilitatingAgency/deleteAppFacilitatingAgencyByIds",method:"delete",data:t})})),t("u",(function(t){return n({url:"/appFacilitatingAgency/updateAppFacilitatingAgency",method:"put",data:t})})),t("f",(function(t){return n({url:"/appFacilitatingAgency/findAppFacilitatingAgency",method:"get",params:t})})),t("g",(function(t){return n({url:"/appFacilitatingAgency/getAppFacilitatingAgencyList",method:"get",params:t})}))}}}));

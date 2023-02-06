@@ -39,5 +39,9 @@ func (s *MiniUserRouter) InitMiniUserRouter(Router *gin.RouterGroup) {
 		miniUserPrivateRouter.GET("info", miniUserApi.Info)
 		//获取小程序手机号
 		miniUserPrivateRouter.POST("getPhone", miniUserApi.GetPhone)
+		//获取用户的商户码和贵宾码
+		miniUserPrivateRouter.GET("qrcode", miniUserApi.Qrcode)
+		//获取零钱明细
+		miniUserPrivateRouter.GET("money", miniUserApi.Money)
 	}
 }

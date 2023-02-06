@@ -35,6 +35,8 @@ func (s *AppUserRouter) InitAppUserRouter(Router *gin.RouterGroup) {
 		appUserPublicRouter.POST("register", appUserApi.Register)
 		//登陆
 		appUserPublicRouter.POST("login", appUserApi.Login)
+		//机构列表
+		appUserPublicRouter.GET("institutions", appUserApi.Institutions)
 	}
 
 	{

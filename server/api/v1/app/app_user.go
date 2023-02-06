@@ -166,6 +166,15 @@ func (appUserApi *AppUserApi) GetAppUserList(c *gin.Context) {
 	}
 }
 
+//机构列表
+func (appUserApi *AppUserApi) Institutions(c *gin.Context) {
+	if err, list := appUserService.Institutions(); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"list": list}, c)
+	}
+}
+
 //注册
 func (appUserApi *AppUserApi) Register(c *gin.Context) {
 	var appUser app.AppUser

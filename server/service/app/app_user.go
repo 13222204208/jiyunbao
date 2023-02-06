@@ -109,7 +109,7 @@ func (appUserService *AppUserService) Register(appUser app.AppUser) (err error) 
 	if err != nil {
 		return errors.New(err.Error())
 	}
-
+	appUser.UserNum = "A" + utils.UserNum()
 	err = global.GVA_DB.Create(&appUser).Error
 	if err != nil {
 		return errors.New("注册失败")
@@ -121,6 +121,12 @@ func (appUserService *AppUserService) Register(appUser app.AppUser) (err error) 
 type Info struct {
 	UserInfo app.AppUser `json:"userInfo"`
 	Token    string      `json:"token"`
+}
+
+//查询机构列表
+func (appUserService *AppUserService) Institutions() (err error, list []app.AppUser) {
+	err = global.GVA_DB.Where("is_institution = ? ", 1).Select("id", "nickname").Find(&list).Error
+	return err, list
 }
 
 //用户登陆

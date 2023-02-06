@@ -84,6 +84,7 @@ func (appOrderPayService *AppOrderPayService) Pay(o appReq.OrderPay) (err error,
 	fmt.Println("聚合支付提交的参数", o)
 	var pay app.AppOrderPay
 	pay.PayType = payType
+	pay.PayTime = utils.TodayTime()
 	pay.TotalAmount = o.TotalAmount
 	pay.MercId = o.MercId
 	pay.Subject = o.Subject

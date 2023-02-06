@@ -28,7 +28,11 @@
         </template>
         </el-table-column>
 
-        <el-table-column align="left" label="状态" width="180">
+        <el-table-column align="left" label="商家端显示状态" width="180">
+            <template #default="scope">{{ scope.row.appStatus == "1"?"已显示":"已隐藏" }}</template>
+        </el-table-column>
+
+        <el-table-column align="left" label="小程序显示状态" width="180">
             <template #default="scope">{{ scope.row.status == "1"?"已显示":"已隐藏" }}</template>
         </el-table-column>
 
@@ -66,7 +70,7 @@
         </div>
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" :title="dialogTitle">
-      <el-form :model="formData" label-position="right" label-width="80px">
+      <el-form :model="formData" label-position="right" label-width="150px">
         <el-form-item label="名称:">
           <el-input v-model="formData.title" clearable placeholder="请输入" />
         </el-form-item>
@@ -99,9 +103,14 @@
 					</el-upload>
 					
 		        </el-form-item>
-            <el-form-item label="显示">
+            <el-form-item label="小程序显示状态">
       <el-switch  v-model="formData.status" active-value="1"	inactive-value="0"	 />
     </el-form-item>
+
+    <el-form-item label="商家端显示状态">
+      <el-switch  v-model="formData.appStatus" active-value="1"	inactive-value="0"	 />
+    </el-form-item>
+
       </el-form>
       <template #footer>
         <div class="dialog-footer">
@@ -146,6 +155,7 @@ const formData = ref({
         icon: "",
         level: 1,
         status:"1",
+        appStatus:"1",
         })
 
 // =========== 表格控制部分 ===========

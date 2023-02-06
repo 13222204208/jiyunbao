@@ -258,3 +258,39 @@ func (miniUserApi *MiniUserApi) GetPhone(c *gin.Context) {
 		}
 	}
 }
+
+//获取商户码和贵宾码
+func (miniUserApi *MiniUserApi) Qrcode(c *gin.Context) {
+	var m miniReq.GetQrcode
+	err := c.ShouldBindQuery(&m)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	qrcodeType := m.Code
+	if err, img := miniUserService.GetQrcode(qrcodeType); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"qrcode": img}, c)
+	}
+}
+
+func (miniUserApi *MiniUserApi) Money(c *gin.Context) {
+	var m miniReq.GetMoney
+	err := c.ShouldBindQuery(&m)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	way := m.Way
+	if way == "detail" {
+		if err, list := miniUserService.GetMoneyDetail(); err != nil {
+			response.FailWithMessage(err.Error(), c)
+		} else {
+			response.OkWithData(gin.H{"list": list}, c)
+		}
+	} else {
+		response.OkWithData(gin.H{"total": 0.00}, c)
+	}
+
+}

@@ -5,6 +5,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/app"
 	appReq "github.com/flipped-aurora/gin-vue-admin/server/model/app/request"
+	appRes "github.com/flipped-aurora/gin-vue-admin/server/model/app/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"gorm.io/gorm"
 )
@@ -90,6 +91,110 @@ func (appStoreService *AppStoreService) Edit(store app.AppStore) (err error) {
 func (appStoreService *AppStoreService) Detail(uid uint) (err error, store app.AppStore) {
 	err = global.GVA_DB.Where("uid = ?", uid).First(&store).Error
 	return
+}
+
+//门店首页
+func (appStoreService *AppStoreService) Index(uid uint) (err error, i appRes.IndexResponse) {
+	var store app.AppStore
+	err = global.GVA_DB.Where("uid = ?", uid).First(&store).Error
+	i.Name = store.StoreName
+	i.State = store.OperatingStatus
+
+	mercId := appRes.QueryMercId(uid)
+	if mercId != "" {
+
+	}
+	return err, i
+
+}
+
+//经营数据
+func (appStoreService *AppStoreService) Manage(uid uint, date string) (err error, m appRes.ManageResponse) {
+	mercId := appRes.QueryMercId(uid)
+	if mercId != "" {
+
+	}
+	m.Rate = "0%"
+	m.Conversion = "0%"
+	return err, m
+}
+
+//24小时收数据
+func (appStoreService *AppStoreService) Income(uid uint, date string) (err error, i appRes.IncomeResponse) {
+	mercId := appRes.QueryMercId(uid)
+	var r []app.AppOrderPay
+	if mercId != "" {
+		global.GVA_DB.Where("merc_id = ? AND pay_time LIKE ?", mercId, date+"%").Find(&r)
+	}
+	i.Records = r
+
+	return err, i
+}
+
+//财务对账
+func (appStoreService *AppStoreService) Reconcile(uid uint, month string) (err error, i appRes.ReconcileResponse) {
+	mercId := appRes.QueryMercId(uid)
+	var r []app.AppOrderPay
+	if mercId != "" {
+		if month != "" {
+			global.GVA_DB.Where("merc_id = ? AND pay_time LIKE ?", mercId, month+"%").Find(&r)
+		}
+	}
+	i.Month = r
+	return err, i
+}
+
+//历史账单
+func (appStoreService *AppStoreService) History(uid uint, month string) (err error, list interface{}) {
+	if month != "" {
+		var d []*appRes.Day
+		d = append(d, &appRes.Day{Date: "2023-01-15", Money: 1.11})
+		d = append(d, &appRes.Day{Date: "2023-01-16", Money: 0.11})
+		var h appRes.HistoryMonth
+		h.Days = d
+		return err, h
+	} else {
+		var m []*appRes.Month
+		m = append(m, &appRes.Month{Date: "2022-12", Money: 1.11})
+		m = append(m, &appRes.Month{Date: "2023-01", Money: 2.21})
+		var h appRes.HistoryResponse
+		h.Months = m
+		return err, h
+	}
+}
+
+//账单详情
+func (appStoreService *AppStoreService) Bill(uid uint) (err error, data *appRes.BillDetails) {
+	var d []*appRes.Detail
+	d = append(d, &appRes.Detail{
+		Nickname: "老铁昵称", Remark: "扣除服务费收单手续费0.25", Date: "2023-01-15 15:04:05", DealMoney: 10.00, CloseMoney: 9.25, Type: "线下收款",
+	})
+	d = append(d, &appRes.Detail{
+		Nickname: "老铁昵称", Remark: "扣除服务费收单手续费0.25", Date: "2023-01-15 15:04:05", DealMoney: 10.00, CloseMoney: 9.25, Type: "线下收款",
+	})
+	data = &appRes.BillDetails{
+		Cycles:     "2022-12-01 - 2023-01-31",
+		Time:       "2023-01-31 00:01:32",
+		DealTotal:  100.12,
+		Order:      3,
+		Services:   5.01,
+		CloseTotal: 96.01,
+		Details:    d,
+	}
+	return err, data
+}
+
+//我的老铁
+func (appStoreService *AppStoreService) Brothers(uid uint, date string) (err error, data appRes.BrotherResponse) {
+	var b []*appRes.Brother
+	b = append(b, &appRes.Brother{
+		ID: 1, Nickname: "老铁昵称", Area: "贵州贵阳", Date: "2023-01-02", State: 1,
+	})
+	b = append(b, &appRes.Brother{
+		ID: 2, Nickname: "老铁昵称", Area: "2023-01-02", Date: "2023-01-03", State: 0,
+	})
+	data.Brothers = b
+	return err, data
 }
 
 //验证用户是否已经提交支付认证

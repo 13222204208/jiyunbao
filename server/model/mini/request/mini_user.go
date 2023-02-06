@@ -25,3 +25,11 @@ type GetPhone struct {
 	MiniType      int    `json:"miniType" form:"miniType"`
 	EncryptedData string `json:"encryptedData" form:"encryptedData"` //支付宝
 }
+
+type GetQrcode struct {
+	Code int `json:"code" form:"code"`
+}
+
+type GetMoney struct {
+	Way string `json:"way" form:"way"`
+}

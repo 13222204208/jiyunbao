@@ -30,5 +30,19 @@ func (s *AppStoreRouter) InitAppStoreRouter(Router *gin.RouterGroup) {
 	{
 		appStorePrivateRouter.PUT("edit", appStoreApi.Edit)
 		appStorePrivateRouter.GET("detail", appStoreApi.Detail)
+		//门店首页
+		appStorePrivateRouter.GET("index", appStoreApi.Index)
+		//经营数据
+		appStorePrivateRouter.GET("manage", appStoreApi.Manage)
+		//收入记录
+		appStorePrivateRouter.GET("income", appStoreApi.Income)
+		//财务对账
+		appStorePrivateRouter.GET("reconcile", appStoreApi.Reconcile)
+		//历史账单
+		appStorePrivateRouter.GET("history", appStoreApi.History)
+		//账单详情
+		appStorePrivateRouter.GET("bill", appStoreApi.Bill)
+		//我的老铁
+		appStorePrivateRouter.GET("brothers", appStoreApi.Brothers)
 	}
 }

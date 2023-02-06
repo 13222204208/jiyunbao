@@ -11,6 +11,7 @@ type AppUser struct {
 	Nickname      string  `json:"nickname" form:"nickname" gorm:"column:nickname;comment:;"`
 	Password      string  `json:"password" form:"password" gorm:"column:password"`
 	Phone         string  `json:"phone" form:"phone" gorm:"column:phone;comment:;size:11;"`
+	UserNum       string  `json:"userNum" form:"userNum" gorm:"column:user_num;comment:用户编号;"`
 	ServiceId     *int    `json:"serviceId" form:"serviceId" gorm:"column:service_id;comment:服务机构id;"`
 	JoinCode      string  `json:"joinCode" form:"joinCode" gorm:"column:join_code;comment:联保代码;"`
 	MchType       *int    `json:"mchType" form:"mchType" gorm:"column:mch_type;comment:;"`
@@ -20,6 +21,7 @@ type AppUser struct {
 	OrdinaryRatio float64 `json:"ordinaryRatio" format:"ordinaryRatio" gorm:"column:ordinary_ratio;type:decimal(4,2);default:0.38;comment:一般商户收单手续费"`
 	MchState      int     `json:"mchState" form:"mchState" gorm:"column:mch_state;comment:商户认证的状态 0未认证 1 审核中 ，2 认证成功，3 认证未通过 ;default:0"`
 	PayState      int     `json:"payState" form:"payState" gorm:"column:pay_state;default:0;comment:支付认证状态 0未认证 1 审核中 ，2 认证成功，3 认证未通过"`
+	IsInstitution int     `json:"isInstitution" form:"isInstitution" gorm:"is_institution;comment:是否成为机构;default:0"`
 	Avatar        string  `json:"avatar" form:"avatar" gorm:"column:avatar;comment:;"`
 	Wechat        string  `json:"wechat" form:"wechat" gorm:"column:wechat;comment:;"`
 	Code          string  `json:"code" form:"code" gorm:"-"`

@@ -82,6 +82,6 @@ func (appCategoryService *AppCategoryService) GetAppCategoryInfoList(info appReq
 //}
 
 func (appCategoryService *AppCategoryService) List(pid string) (list []mini.MiniClassify, err error) {
-	err = global.GVA_DB.Where("pid = ?", pid).Find(&list).Error
+	err = global.GVA_DB.Where("pid = ? AND app_status = ?", pid, 1).Find(&list).Error
 	return
 }

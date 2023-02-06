@@ -191,3 +191,87 @@ func (appStoreApi *AppStoreApi) Detail(c *gin.Context) {
 		response.OkWithData(gin.H{"info": info}, c)
 	}
 }
+
+//门店首页
+func (appStoreApi *AppStoreApi) Index(c *gin.Context) {
+	uid := c.MustGet("id").(uint)
+	if err, info := appStoreService.Index(uid); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"info": info}, c)
+	}
+}
+
+func (appStoreApi *AppStoreApi) Manage(c *gin.Context) {
+	var m appReq.ManageSearch
+	_ = c.ShouldBindQuery(&m)
+
+	uid := c.MustGet("id").(uint)
+	if err, info := appStoreService.Manage(uid, m.Date); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"info": info}, c)
+	}
+}
+
+//24小时数据
+func (appStoreApi *AppStoreApi) Income(c *gin.Context) {
+	var m appReq.ManageSearch
+	_ = c.ShouldBindQuery(&m)
+
+	uid := c.MustGet("id").(uint)
+	if err, info := appStoreService.Income(uid, m.Date); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"info": info}, c)
+	}
+}
+
+//财务对账
+func (appStoreApi *AppStoreApi) Reconcile(c *gin.Context) {
+	var m appReq.ReconcileSearch
+	_ = c.ShouldBindQuery(&m)
+
+	uid := c.MustGet("id").(uint)
+	if err, info := appStoreService.Reconcile(uid, m.Month); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"info": info}, c)
+	}
+}
+
+//历史账单
+func (appStoreApi *AppStoreApi) History(c *gin.Context) {
+	var m appReq.ReconcileSearch
+	_ = c.ShouldBindQuery(&m)
+
+	uid := c.MustGet("id").(uint)
+	if err, list := appStoreService.History(uid, m.Month); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"list": list}, c)
+	}
+}
+
+//账单详情
+func (appStoreApi *AppStoreApi) Bill(c *gin.Context) {
+
+	uid := c.MustGet("id").(uint)
+	if err, info := appStoreService.Bill(uid); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"info": info}, c)
+	}
+}
+
+//我的老铁
+func (appStoreApi *AppStoreApi) Brothers(c *gin.Context) {
+	var m appReq.BrothersSearch
+	_ = c.ShouldBindQuery(&m)
+	uid := c.MustGet("id").(uint)
+	if err, info := appStoreService.Brothers(uid, m.Date); err != nil {
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"info": info}, c)
+	}
+}
