@@ -7,14 +7,20 @@
        —
       <el-date-picker v-model="searchInfo.endCreatedAt" type="datetime" placeholder="结束时间"></el-date-picker>
       </el-form-item>
-        <el-form-item label="企业名称">
+        <!-- <el-form-item label="企业名称">
          <el-input v-model="searchInfo.firmName" placeholder="搜索条件" />
 
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="店铺名称">
          <el-input v-model="searchInfo.storeName" placeholder="搜索条件" />
 
         </el-form-item>
+
+        <el-form-item label="联系电话">
+         <el-input v-model="searchInfo.storeName" placeholder="搜索条件" />
+
+        </el-form-item>
+
            <el-form-item label="状态" prop="status">
             <el-select v-model="searchInfo.status" clearable placeholder="请选择" @clear="()=>{searchInfo.status=undefined}">
               <el-option v-for="(item,key) in checkStateOptions" :key="key" :label="item.label" :value="item.value" />
@@ -49,13 +55,33 @@
         @selection-change="handleSelectionChange"
         >
         <!-- <el-table-column type="selection" width="55" /> -->
-        <el-table-column align="left" label="日期" width="180">
-            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
-        </el-table-column>
-        <el-table-column align="left" label="商户ID" prop="uid" width="120" />
+
+        <el-table-column align="center" label="商户ID" prop="uid" width="80" />
+        <el-table-column align="left" label="商户昵称" prop="" width="120" />
         <el-table-column align="left" label="企业名称" prop="firmName" width="120" />
         <el-table-column align="left" label="店铺名称" prop="storeName" width="120" />
+        <el-table-column align="left" label="商户种类" prop="" width="120" />
+        <el-table-column align="left" label="注册手机" prop="" width="120" />
+        <el-table-column align="left" label="注册日期" width="180">
+            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
+        </el-table-column>
+        <el-table-column align="left" label="商户类型" prop="" width="120" />
+        <el-table-column align="left" label="商户状态" prop="" width="120" />
+        <el-table-column align="left" label="结算模式" prop="" width="120" />
+        <el-table-column align="left" label="联保代码" prop="" width="120" />
+
         <el-table-column align="left" label="主营品类" prop="mainType" width="120" />
+        <el-table-column align="left" label="从业资格证" prop="" width="120" />
+        <el-table-column align="left" label="车辆运输证" prop="" width="120" />
+        <el-table-column align="left" label="车辆照片" prop="" width="120" />
+        <el-table-column align="left" label="驾驶室照片" prop="" width="120" />
+        <el-table-column align="left" label="负责人照片" prop="" width="120" />
+        <el-table-column align="left" label="身份证头像面" prop="" width="120" />
+        <el-table-column align="left" label="身份证国徽面" prop="" width="120" />
+        <el-table-column align="left" label="营业执照" prop="" width="120" />
+        <el-table-column align="left" label="许可证" prop="" width="120" />
+        <el-table-column align="left" label="其它资料" prop="" width="120" />
+
 <!--        <el-table-column align="left" label="确认佣金" prop="commission" width="120" />
         <el-table-column align="left" label="T+1结算" prop="final" width="120" />
         <el-table-column align="left" label="特约收单" prop="acquirer" width="120" />
@@ -71,10 +97,15 @@
             {{ filterDict(scope.row.status,checkStateOptions) }}
             </template>
         </el-table-column>
-        <el-table-column align="left" label="按钮组">
+        <el-table-column fixed="right" label="按钮组" width="175">
             <template #default="scope">
-            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateAppMchFunc(scope.row)">变更</el-button>
-            <el-button type="primary" link icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
+              <el-button type="primary" link  size="small" class="table-button" >支付认证</el-button>
+              
+            <el-button type="primary" link  size="small" class="table-button" @click="updateAppMchFunc(scope.row)">变更</el-button>
+            <el-button type="primary" link  size="small" class="table-button" >审核</el-button><br>
+            <el-button type="primary" link  size="small" class="table-button" >认证查询</el-button>
+            <el-button type="primary" link size="small" @click="deleteRow(scope.row)" class="table-button">删除</el-button>
+            <el-button type="primary" link  size="small" class="table-button" >禁用</el-button>
             </template>
         </el-table-column>
         </el-table>

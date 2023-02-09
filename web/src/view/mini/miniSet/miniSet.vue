@@ -35,7 +35,7 @@
         row-key="ID"
         @selection-change="handleSelectionChange"
         >
-        <el-table-column type="selection" width="55" />
+        <!-- <el-table-column type="selection" width="55" /> -->
         <el-table-column align="left" label="日期" width="180">
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
@@ -45,11 +45,13 @@
             </template>
         </el-table-column>
         <el-table-column align="left" label="AppId" prop="appid" width="120" />
-        <el-table-column align="left" label="秘匙" prop="appSecret" width="120" />
+        <!-- <el-table-column align="left" label="秘匙" prop="appSecret" width="120" /> -->
         <el-table-column align="left" label="商户号" prop="mchId" width="120" />
-        <el-table-column align="left" label="支付秘钥" prop="mchSecret" width="120" />
-        <el-table-column align="left" label="公钥" prop="public" width="120" />
-        <el-table-column align="left" label="私钥" prop="private" width="120" />
+        <el-table-column align="left" label="钱包公告" prop="walletNotice" width="120" />
+
+        <!-- <el-table-column align="left" label="支付秘钥" prop="mchSecret" width="120" /> -->
+        <!-- <el-table-column align="left" label="公钥" prop="public" width="120" />
+        <el-table-column align="left" label="私钥" prop="private" width="120" /> -->
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
             <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateMiniSetFunc(scope.row)">变更</el-button>
@@ -70,7 +72,7 @@
         </div>
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
-      <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="80px">
+      <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" label-width="150px">
         <el-form-item label="小程序类型:"  prop="miniType" >
           <el-select v-model="formData.miniType" placeholder="请选择" style="width:100%" :clearable="true" >
             <el-option v-for="(item,key) in miniOptions" :key="key" :label="item.label" :value="item.value" />
@@ -78,6 +80,9 @@
         </el-form-item>
         <el-form-item label="AppId:"  prop="appid" >
           <el-input v-model="formData.appid" :clearable="true"  placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="我的钱包公告:"  prop="walletNotice" >
+          <el-input v-model="formData.walletNotice" :clearable="true"  placeholder="请输入" />
         </el-form-item>
         <el-form-item label="秘匙:"  prop="appSecret" >
           <el-input v-model="formData.appSecret" :clearable="true"  placeholder="请输入" />
@@ -134,6 +139,7 @@ const formData = ref({
         appSecret: '',
         mchId: '',
         mchSecret: '',
+        walletNotice: '',
         public: '',
         private: '',
         })
@@ -300,6 +306,7 @@ const closeDialog = () => {
         miniType: undefined,
         appid: '',
         appSecret: '',
+        walletNotice: '',
         mchId: '',
         mchSecret: '',
         public: '',

@@ -105,6 +105,7 @@ func Routers() *gin.Engine {
 		miniRouter.InitMiniUserRouter(miniGroup)
 		miniRouter.InitMiniClassifyRouter(miniGroup)
 		miniRouter.InitMiniStoreRouter(miniGroup)
+		miniRouter.InitMiniSetRouter(miniGroup)
 	}
 	//app的接口路由
 	appGroup := Router.Group("app")

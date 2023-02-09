@@ -1,0 +1,10 @@
+[github.com/flipped-aurora/gin-vue-admin/server]2023/02/08 - 11:44:57.547	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/gorm.go:86	register table success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/02/08 - 11:44:57.570	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/redis.go:23	redis connect ping response:	{"pong": "PONG"}
+[github.com/flipped-aurora/gin-vue-admin/server]2023/02/08 - 11:44:58.276	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:39	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2023/02/08 - 11:45:18.330	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:141	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/02/08 - 11:45:18.331	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:36	server run success on 	{"address": ":9521"}
+[github.com/flipped-aurora/gin-vue-admin/server]2023/02/08 - 13:13:59.490	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/gorm.go:86	register table success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/02/08 - 13:13:59.529	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/redis.go:23	redis connect ping response:	{"pong": "PONG"}
+[github.com/flipped-aurora/gin-vue-admin/server]2023/02/08 - 13:13:59.540	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:39	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2023/02/08 - 13:13:59.634	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/router.go:142	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2023/02/08 - 13:13:59.635	[34minfo[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:36	server run success on 	{"address": ":9521"}

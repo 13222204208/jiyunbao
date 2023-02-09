@@ -15,13 +15,15 @@ func (s *MiniSetRouter) InitMiniSetRouter(Router *gin.RouterGroup) {
 	miniSetRouterWithoutRecord := Router.Group("miniSet")
 	var miniSetApi = v1.ApiGroupApp.MiniApiGroup.MiniSetApi
 	{
-		miniSetRouter.POST("createMiniSet", miniSetApi.CreateMiniSet)   // 新建MiniSet
-		miniSetRouter.DELETE("deleteMiniSet", miniSetApi.DeleteMiniSet) // 删除MiniSet
+		miniSetRouter.POST("createMiniSet", miniSetApi.CreateMiniSet)             // 新建MiniSet
+		miniSetRouter.DELETE("deleteMiniSet", miniSetApi.DeleteMiniSet)           // 删除MiniSet
 		miniSetRouter.DELETE("deleteMiniSetByIds", miniSetApi.DeleteMiniSetByIds) // 批量删除MiniSet
-		miniSetRouter.PUT("updateMiniSet", miniSetApi.UpdateMiniSet)    // 更新MiniSet
+		miniSetRouter.PUT("updateMiniSet", miniSetApi.UpdateMiniSet)              // 更新MiniSet
 	}
 	{
-		miniSetRouterWithoutRecord.GET("findMiniSet", miniSetApi.FindMiniSet)        // 根据ID获取MiniSet
-		miniSetRouterWithoutRecord.GET("getMiniSetList", miniSetApi.GetMiniSetList)  // 获取MiniSet列表
+		miniSetRouterWithoutRecord.GET("findMiniSet", miniSetApi.FindMiniSet)       // 根据ID获取MiniSet
+		miniSetRouterWithoutRecord.GET("getMiniSetList", miniSetApi.GetMiniSetList) // 获取MiniSet列表
+		//个人中心我的钱包公告
+		miniSetRouterWithoutRecord.GET("walletNotice", miniSetApi.WalletNotice) //
 	}
 }
