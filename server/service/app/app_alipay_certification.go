@@ -168,6 +168,22 @@ func (appAlipayCertificationService *AppAlipayCertificationService) GetAlipayAut
 	}
 }
 
+//向前端返回认证小程序二维码
+func (appAlipayCertificationService *AppAlipayCertificationService) Authentication(uid uint) (err error, imgUrl string) {
+	var info app.AppCustInfo
+	global.GVA_DB.Where("uid = ?", uid).First(&info)
+
+	var sign app.AppSignContract
+	global.GVA_DB.Where("cust_id = ?", sign.CustId).First(&sign)
+
+	if sign.MercId != "" {
+		var alipay app.AppAlipayCertification
+		err = global.GVA_DB.Where("merc_id = ?", alipay.MercId).First(&alipay).Error
+		imgUrl = alipay.QrcodeData
+	}
+	return
+}
+
 func GetAlipayCertificationState(result YsResult, mercId string) (err error) {
 	code := result.Code
 	subCode := result.SubCode

@@ -86,17 +86,21 @@
         <el-table-column align="left" label="营业归属省代码" prop="busProviceCode" width="120" />
         <el-table-column align="left" label="营业归属市代码" prop="busCityCode" width="120" />
         <el-table-column align="left" label="营业详细地址" prop="busAddr" width="120" />
-        <el-table-column fixed="right" align="left" label="操作" width="220" >
+        <el-table-column fixed="right" align="left" label="操作" width="320" >
             <template #default="scope">
 				      <el-button type="primary" link icon="edit" size="small" class="table-button" @click="addCustInfoApplyFunc(scope.row)">资料上送</el-button>
-					  
+
+					    <el-button type="primary" link icon="edit" size="small" class="table-button"  @click="toUploadImg(scope.row)">图片上送</el-button>
+
+              <el-button type="primary" link icon="edit" size="small" class="table-button"  @click="queryCustApplyFunc(scope.row)">状态查询</el-button> <br>
+
             <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateAppCustInfoFunc(scope.row)">资料修改</el-button>
 			
-			            <el-button type="primary" link icon="edit" size="small" class="table-button"  @click="toUploadImg(scope.row)">图片上送</el-button>
+			          
 
                   <el-button type="primary" link icon="edit" size="small" class="table-button"  @click="auditCustInfoApplyFunc(scope.row)">资料确认</el-button>
 
-                  <el-button type="primary" link icon="edit" size="small" class="table-button"  @click="queryCustApplyFunc(scope.row)">状态查询</el-button>
+              
 						
                   <el-button type="primary" link icon="edit" size="small" class="table-button"  @click="changeMercBaseInfoFunc(scope.row)">变更申请</el-button>
 
@@ -271,6 +275,11 @@
         <el-form-item label="结算账号:"  prop="stlAccNo" >
           <el-input v-model="formData.stlAccNo" :clearable="true"  placeholder="请输入" />
         </el-form-item>
+
+        <el-form-item label="开户行:"  prop="openBankName" >
+          <el-input v-model="formData.openBankName" :clearable="true"  placeholder="请输入" />
+        </el-form-item>
+
         <el-form-item label="开户支行联行号:"  prop="bankSubCode" >
           <el-input v-model="formData.bankSubCode" :clearable="true"  placeholder="请输入" >
             <template #append>
@@ -331,15 +340,28 @@ import {
 // 全量引入格式化工具 请按需保留
 import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
 import { Search } from '@element-plus/icons-vue'
-import {useRouter} from 'vue-router'
+import {useRouter,useRoute} from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref, reactive } from 'vue'
 
-import {  inject } from 'vue-demi'
+// import {  inject } from 'vue-demi'
 
-const reload = inject('reload')
+// const reload = inject('reload')
 
-const router=useRouter()
+const router= useRouter()
+const route = useRoute()
+
+router.isReady().then(() => {
+  let uid = route.query.id
+  if(uid > 0){
+    searchInfo.value.uid = uid
+    page.value = 1
+    pageSize.value = 10
+    getTableData()
+  }
+
+})
+
 // 自动化生成的字典（可能为空）以及字段
 const mercTypeOptions = ref([])
 const stlAccTypeOptions = ref([])
@@ -380,6 +402,7 @@ const formData = ref({
         busNm: '',
         busCertBgn: '',
         busCertExpire: '',
+        openBankName:'',
 
         })
 
@@ -621,7 +644,7 @@ const addCustInfoApplyFunc = async(row) => {
                   message: res.msg
                 })
           }
-          reload()
+          // reload()
 }
 
 
@@ -648,7 +671,7 @@ const auditCustInfoApplyFunc = async(row) => {
                   message: '创建/更改成功'
                 })
           }
-          reload()
+          // reload()
 }
 
 //商户状态查询 
@@ -700,7 +723,7 @@ const getBankCode = () => {
 //获取mcc码
 const getMcc = () => {
   let mercType = formData.value.mercType
-  console.log("类型值 ",mercType)
+
   //商户类型,1-个体工商户、 2-企业、 3-小微，
   if(mercType == 3){
     mercType = 1
@@ -709,7 +732,7 @@ const getMcc = () => {
   }else{
     mercType = 3
   }
-
+  console.log("类型值 ",mercType)
   window.open(import.meta.env.VITE_BASE_PATH+"/sdk/request/queryMccList.php?merc_type="+mercType,"_blank")
 }
 

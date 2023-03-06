@@ -34,15 +34,9 @@ func (appMchApi *AppMchApi) CreateAppMch(c *gin.Context) {
 		return
 	}
 	verify := utils.Rules{
-		"FirmName":    {utils.NotEmpty()},
-		"MainType":    {utils.NotEmpty()},
-		"Commission":  {utils.NotEmpty()},
-		"LegalPerson": {utils.NotEmpty()},
-		"Avatar":      {utils.NotEmpty()},
-		"CardFront":   {utils.NotEmpty()},
-		"CardReverse": {utils.NotEmpty()},
-		"Entrust":     {utils.NotEmpty()},
-		"Status":      {utils.NotEmpty()},
+		"MainType":   {utils.NotEmpty()},
+		"Commission": {utils.NotEmpty()},
+		"Status":     {utils.NotEmpty()},
 	}
 	if err := utils.Verify(appMch, verify); err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -121,15 +115,9 @@ func (appMchApi *AppMchApi) UpdateAppMch(c *gin.Context) {
 		return
 	}
 	verify := utils.Rules{
-		"FirmName":    {utils.NotEmpty()},
-		"MainType":    {utils.NotEmpty()},
-		"Commission":  {utils.NotEmpty()},
-		"LegalPerson": {utils.NotEmpty()},
-		"Avatar":      {utils.NotEmpty()},
-		"CardFront":   {utils.NotEmpty()},
-		"CardReverse": {utils.NotEmpty()},
-		"Entrust":     {utils.NotEmpty()},
-		"Status":      {utils.NotEmpty()},
+		"MainType":   {utils.NotEmpty()},
+		"Commission": {utils.NotEmpty()},
+		"Status":     {utils.NotEmpty()},
 	}
 	if err := utils.Verify(appMch, verify); err != nil {
 		response.FailWithMessage(err.Error(), c)
@@ -205,14 +193,8 @@ func (appMchApi *AppMchApi) Attestation(c *gin.Context) {
 		return
 	}
 	verify := utils.Rules{
-		"FirmName":    {utils.NotEmpty()},
-		"MainType":    {utils.NotEmpty()},
-		"Commission":  {utils.NotEmpty()},
-		"LegalPerson": {utils.NotEmpty()},
-		"Avatar":      {utils.NotEmpty()},
-		"CardFront":   {utils.NotEmpty()},
-		"CardReverse": {utils.NotEmpty()},
-		"Entrust":     {utils.NotEmpty()},
+		"MainType":   {utils.NotEmpty()},
+		"Commission": {utils.NotEmpty()},
 	}
 	if err := utils.Verify(appMch, verify); err != nil {
 		response.FailWithMessage(err.Error(), c)

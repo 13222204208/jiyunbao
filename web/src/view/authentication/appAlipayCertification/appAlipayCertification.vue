@@ -82,7 +82,7 @@
             <!-- <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateAppAlipayCertificationFunc(scope.row)">变更</el-button> -->
             <el-button type="primary" link icon="edit" size="small" class="table-button" @click="alipayCertificationFunc(scope.row)">实名认证</el-button>
 
-            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="alipayCertificationStateFunc(scope.row)">状态查询</el-button>
+            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="alipayCertificationStateFunc(scope.row)">状态查询</el-button><br>
 
               <el-button type="primary" link icon="edit" size="small" class="table-button" @click="getAlipayAuthStateFunc(scope.row)">授权状态</el-button>
 

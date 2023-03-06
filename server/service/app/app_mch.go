@@ -37,13 +37,14 @@ func (appMchService *AppMchService) DeleteAppMchByIds(ids request.IdsReq) (err e
 // Author [piexlmax](https://github.com/piexlmax)
 func (appMchService *AppMchService) UpdateAppMch(appMch app.AppMch) (err error) {
 	err = global.GVA_DB.Save(&appMch).Error
+	global.GVA_DB.Model(&app.AppUser{}).Where("id = ?", appMch.Uid).Update("mch_state", appMch.Status)
 	return err
 }
 
 // GetAppMch 根据id获取AppMch记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (appMchService *AppMchService) GetAppMch(id uint) (appMch app.AppMch, err error) {
-	err = global.GVA_DB.Where("id = ?", id).First(&appMch).Error
+	err = global.GVA_DB.Where("id = ?", id).Preload("AppUser").Preload("AppUser.Classify").First(&appMch).Error
 	return
 }
 
@@ -68,11 +69,16 @@ func (appMchService *AppMchService) GetAppMchInfoList(info appReq.AppMchSearch) 
 	if info.Status != 0 {
 		db = db.Where("status = ?", info.Status)
 	}
+
+	if info.Forbidden != 0 {
+		db = db.Where("forbidden = ?", info.Forbidden)
+	}
+
 	err = db.Count(&total).Error
 	if err != nil {
 		return
 	}
-	err = db.Limit(limit).Offset(offset).Find(&appMchs).Error
+	err = db.Limit(limit).Preload("AppUser").Offset(offset).Find(&appMchs).Error
 	return appMchs, total, err
 }
 

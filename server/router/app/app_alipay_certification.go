@@ -13,6 +13,9 @@ type AppAlipayCertificationRouter struct {
 func (s *AppAlipayCertificationRouter) InitAppAlipayCertificationRouter(Router *gin.RouterGroup) {
 	appAlipayCertificationRouter := Router.Group("appAlipayCertification").Use(middleware.OperationRecord())
 	appAlipayCertificationRouterWithoutRecord := Router.Group("appAlipayCertification")
+
+	appAlipayRouter := Router.Group("alipay").Use(middleware.JWTAuthMiddleware())
+
 	var appAlipayCertificationApi = v1.ApiGroupApp.AppApiGroup.AppAlipayCertificationApi
 	{
 		appAlipayCertificationRouter.POST("createAppAlipayCertification", appAlipayCertificationApi.CreateAppAlipayCertification)             // 新建AppAlipayCertification
@@ -32,5 +35,9 @@ func (s *AppAlipayCertificationRouter) InitAppAlipayCertificationRouter(Router *
 	{
 		appAlipayCertificationRouterWithoutRecord.GET("findAppAlipayCertification", appAlipayCertificationApi.FindAppAlipayCertification)       // 根据ID获取AppAlipayCertification
 		appAlipayCertificationRouterWithoutRecord.GET("getAppAlipayCertificationList", appAlipayCertificationApi.GetAppAlipayCertificationList) // 获取AppAlipayCertification列表
+	}
+
+	{
+		appAlipayRouter.GET("authentication", appAlipayCertificationApi.Authentication)
 	}
 }

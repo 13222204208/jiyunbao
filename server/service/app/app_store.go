@@ -83,6 +83,14 @@ func (appStoreService *AppStoreService) Edit(store app.AppStore) (err error) {
 		return err
 	} else {
 		err = global.GVA_DB.Model(&store).Where("uid = ?", uid).Updates(store).Error
+
+		if store.StoreName != "" {
+			global.GVA_DB.Model(&app.AppMch{}).Where("uid = ?", uid).Update("store_name", store.StoreName)
+		}
+
+		if store.OperatingStatus > 0 {
+			global.GVA_DB.Model(&app.AppMch{}).Where("uid = ?", uid).Update("operating_status", store.OperatingStatus)
+		}
 		return err
 	}
 }
@@ -95,7 +103,7 @@ func (appStoreService *AppStoreService) Detail(uid uint) (err error, store app.A
 
 //门店首页
 func (appStoreService *AppStoreService) Index(uid uint) (err error, i appRes.IndexResponse) {
-	var store app.AppStore
+	var store app.AppMch
 	err = global.GVA_DB.Where("uid = ?", uid).First(&store).Error
 	i.Name = store.StoreName
 	i.State = store.OperatingStatus

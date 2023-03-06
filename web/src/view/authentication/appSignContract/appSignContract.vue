@@ -59,7 +59,7 @@
             <template #default="scope">
             <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateAppSignContractFunc(scope.row)">签约申请</el-button>
 
-            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="stateAppSignContractFunc(scope.row)">签约状态</el-button>
+            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="stateAppSignContractFunc(scope.row)">签约状态</el-button><br>
 
             <el-button type="primary" link icon="edit" size="small" class="table-button" @click="balanceQueryFunc(scope.row)">余额查询</el-button>            
 

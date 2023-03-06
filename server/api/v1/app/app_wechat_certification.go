@@ -260,3 +260,14 @@ func (appWechatCertificationApi *AppWechatCertificationApi) GetAuthState(c *gin.
 		response.OkWithMessage(statusMsg, c)
 	}
 }
+
+func (appWechatCertificationApi *AppWechatCertificationApi) Authentication(c *gin.Context) {
+
+	uid := c.MustGet("id").(uint)
+	if err, qrcode := appWechatCertificationService.Authentication(uid); err != nil {
+
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"qrcode": qrcode}, c)
+	}
+}

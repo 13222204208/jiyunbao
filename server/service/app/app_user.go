@@ -109,13 +109,26 @@ func (appUserService *AppUserService) Register(appUser app.AppUser) (err error) 
 	if err != nil {
 		return errors.New(err.Error())
 	}
-	appUser.UserNum = "A" + utils.UserNum()
+
 	err = global.GVA_DB.Create(&appUser).Error
+	appUser.UserNum = "A" + utils.UserNum()
+	userNum := "A" + sup(appUser.ID, 7)
+
+	global.GVA_DB.Model(&appUser).Where("id", appUser.ID).Update("user_num", userNum)
 	if err != nil {
 		return errors.New("注册失败")
 	} else {
 		return err
 	}
+}
+
+//对长度不足n的数字前面补0
+func sup(i uint, n int) string {
+	m := fmt.Sprintf("%d", i)
+	for len(m) < n {
+		m = fmt.Sprintf("0%s", m)
+	}
+	return m
 }
 
 type Info struct {
@@ -125,7 +138,7 @@ type Info struct {
 
 //查询机构列表
 func (appUserService *AppUserService) Institutions() (err error, list []app.AppUser) {
-	err = global.GVA_DB.Where("is_institution = ? ", 1).Select("id", "nickname").Find(&list).Error
+	err = global.GVA_DB.Where("is_institution = ? ", 1).Select("id", "nickname", "user_num").Find(&list).Error
 	return err, list
 }
 

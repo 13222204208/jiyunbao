@@ -13,6 +13,9 @@ type AppWechatCertificationRouter struct {
 func (s *AppWechatCertificationRouter) InitAppWechatCertificationRouter(Router *gin.RouterGroup) {
 	appWechatCertificationRouter := Router.Group("appWechatCertification").Use(middleware.OperationRecord())
 	appWechatCertificationRouterWithoutRecord := Router.Group("appWechatCertification")
+
+	appWechatRouter := Router.Group("wechat").Use(middleware.JWTAuthMiddleware())
+
 	var appWechatCertificationApi = v1.ApiGroupApp.AppApiGroup.AppWechatCertificationApi
 	{
 		appWechatCertificationRouter.POST("createAppWechatCertification", appWechatCertificationApi.CreateAppWechatCertification)             // 新建AppWechatCertification
@@ -35,5 +38,9 @@ func (s *AppWechatCertificationRouter) InitAppWechatCertificationRouter(Router *
 	{
 		appWechatCertificationRouterWithoutRecord.GET("findAppWechatCertification", appWechatCertificationApi.FindAppWechatCertification)       // 根据ID获取AppWechatCertification
 		appWechatCertificationRouterWithoutRecord.GET("getAppWechatCertificationList", appWechatCertificationApi.GetAppWechatCertificationList) // 获取AppWechatCertification列表
+	}
+
+	{
+		appWechatRouter.GET("authentication", appWechatCertificationApi.Authentication)
 	}
 }

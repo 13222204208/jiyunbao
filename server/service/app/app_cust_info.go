@@ -95,6 +95,11 @@ func (appCustInfoService *AppCustInfoService) GetAppCustInfoInfoList(info appReq
 	if info.MercType != nil {
 		db = db.Where("merc_type = ?", info.MercType)
 	}
+
+	if info.Uid != 0 {
+		db = db.Where("uid = ?", info.Uid)
+	}
+
 	err = db.Count(&total).Error
 	if err != nil {
 		return

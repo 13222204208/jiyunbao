@@ -1,4 +1,0 @@
-/*! 
- Build based on gin-vue-admin 
- Time : 1675935707000 */
-import{s as a}from"./index.3b117381.js";const i=i=>a({url:"/appAlipayCertification/createAppAlipayCertification",method:"post",data:i}),t=i=>a({url:"/appAlipayCertification/alipayCertification",method:"post",data:i}),p=i=>a({url:"/appAlipayCertification/deleteAppAlipayCertification",method:"delete",data:i}),e=i=>a({url:"/appAlipayCertification/deleteAppAlipayCertificationByIds",method:"delete",data:i}),r=i=>a({url:"/appAlipayCertification/updateAppAlipayCertification",method:"put",data:i}),o=i=>a({url:"/appAlipayCertification/findAppAlipayCertification",method:"get",params:i}),l=i=>a({url:"/appAlipayCertification/alipayCertificationState",method:"get",params:i}),d=i=>a({url:"/appAlipayCertification/getAlipayAuthState",method:"get",params:i}),A=i=>a({url:"/appAlipayCertification/getAppAlipayCertificationList",method:"get",params:i});export{d as a,t as b,l as c,e as d,p as e,i as f,A as g,o as h,r as u};

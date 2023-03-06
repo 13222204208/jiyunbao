@@ -239,3 +239,15 @@ func (appAlipayCertificationApi *AppAlipayCertificationApi) GetAlipayAuthState(c
 		response.OkWithMessage(statusMsg, c)
 	}
 }
+
+//微信实名认证授权状态查询
+func (appAlipayCertificationApi *AppAlipayCertificationApi) Authentication(c *gin.Context) {
+
+	uid := c.MustGet("id").(uint)
+	if err, qrcode := appAlipayCertificationService.Authentication(uid); err != nil {
+
+		response.FailWithMessage(err.Error(), c)
+	} else {
+		response.OkWithData(gin.H{"qrcode": qrcode}, c)
+	}
+}

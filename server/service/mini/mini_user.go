@@ -272,6 +272,8 @@ func SaveMiniUser(openid, avatar, nickname string, miniType int) (err error, m m
 		m.UserNum = utils.UserNum()
 		m.MiniType = miniType
 		err = global.GVA_DB.Create(&m).Error
+		userNum := "M" + sup(m.ID, 7)
+		global.GVA_DB.Model(&m).Where("id = ?", m.ID).Update("user_num", userNum)
 		if err != nil {
 			return errors.New("保存失败"), m
 		} else {
@@ -285,4 +287,13 @@ func SaveMiniUser(openid, avatar, nickname string, miniType int) (err error, m m
 		}
 
 	}
+}
+
+//对长度不足n的数字前面补0
+func sup(i uint, n int) string {
+	m := fmt.Sprintf("%d", i)
+	for len(m) < n {
+		m = fmt.Sprintf("0%s", m)
+	}
+	return m
 }

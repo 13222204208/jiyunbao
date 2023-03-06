@@ -1,2 +1,0 @@
-[github.com/flipped-aurora/gin-vue-admin/server]2023/02/09 - 15:08:48.518	[31merror[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/initialize/redis.go:21	redis connect ping failed, err:	{"error": "dial tcp 127.0.0.1:6379: connect: connection refused"}
-[github.com/flipped-aurora/gin-vue-admin/server]2023/02/09 - 17:58:25.228	[31merror[0m	/Users/yangpanda/Desktop/麦盟科技/积运宝/jiyunbao/server/core/server.go:48	accept tcp [::]:9521: use of closed network connection

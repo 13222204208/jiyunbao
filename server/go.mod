@@ -3,14 +3,14 @@ module github.com/flipped-aurora/gin-vue-admin/server
 go 1.16
 
 require (
-	github.com/13222204208/tool v0.0.0-20230116042038-c384b1f70262 // indirect
-	github.com/agclqq/goencryption v0.0.0-20220916113738-68f6c6ffc854
+	github.com/13222204208/tool v0.0.0-20230228015347-d50982f03988 // indirect
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1820
 	github.com/aliyun/aliyun-oss-go-sdk v2.1.6+incompatible
 	github.com/aws/aws-sdk-go v1.42.27
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
-	github.com/bitly/go-simplejson v0.5.0 // indirect
+	github.com/bitly/go-simplejson v0.5.0
+	github.com/bmizerany/assert v0.0.0-20160611221934-b7ed37b82869 // indirect
 	github.com/casbin/casbin/v2 v2.51.0
 	github.com/casbin/gorm-adapter/v3 v3.7.3
 	github.com/flipped-aurora/ws v1.0.2
@@ -20,7 +20,7 @@ require (
 	github.com/go-openapi/jsonreference v0.19.6 // indirect
 	github.com/go-openapi/spec v0.20.3 // indirect
 	github.com/go-openapi/swag v0.19.15 // indirect
-	github.com/go-pay/gopay v1.5.88 // indirect
+	github.com/go-pay/gopay v1.5.88
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/golang-jwt/jwt/v4 v4.3.0
@@ -30,7 +30,6 @@ require (
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/lestrrat-go/strftime v1.0.6 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
-	github.com/melf-xyzh/go-rsa v0.0.0-20220608013711-616a791704d6 // indirect
 	github.com/mitchellh/mapstructure v1.2.2 // indirect
 	github.com/mojocn/base64Captcha v1.3.1
 	github.com/otiai10/copy v1.7.0
@@ -40,7 +39,7 @@ require (
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/satori/go.uuid v1.2.0
 	github.com/shirou/gopsutil/v3 v3.22.5
-	github.com/silenceper/wechat/v2 v2.1.4 // indirect
+	github.com/silenceper/wechat/v2 v2.1.4
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/songzhibin97/gkit v1.2.7
 	github.com/spf13/afero v1.2.2 // indirect

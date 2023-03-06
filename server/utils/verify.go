@@ -62,7 +62,7 @@ var (
 	//app支付认证的资料上传
 	AppCustInfoVerify = Rules{
 		"MercName":    {NotEmpty()},
-		"MercType":    {Ge("2")},
+		"MercType":    {NotEmpty()},
 		"ContactMail": {NotEmpty()},
 		"CrpCertNo":   {NotEmpty()},
 		"CertBgn":     {NotEmpty()},

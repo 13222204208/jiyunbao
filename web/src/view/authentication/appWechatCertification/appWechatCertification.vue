@@ -75,15 +75,20 @@
         </el-table-column>
         <el-table-column align="left" label="门店名称" prop="storeName" width="120" />
         <!-- <el-table-column align="left" label="业务办理授权函" prop="busAutLetterImg" width="120" /> -->
-        <el-table-column align="left" fixed="right" label="按钮组" width="280">
+        <el-table-column align="left" fixed="right" label="按钮组" width="240">
             <template #default="scope">
-            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateAppWechatCertificationFunc(scope.row)">变更</el-button>
 
-            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="appWechatCertificationFunc(scope.row)">实名认证</el-button>
+              <el-button type="primary" link icon="edit" size="small" class="table-button" @click="appWechatCertificationFunc(scope.row)">实名认证</el-button>
+
+              <el-button type="primary" link icon="edit" size="small" class="table-button" @click="getAuthMessagesByMercIdFunc(scope.row)">明细信息</el-button>
+
+            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="updateAppWechatCertificationFunc(scope.row)">变更</el-button><br>
+
+
 
             <el-button type="primary" link icon="edit" size="small" class="table-button" @click="certificationStateFunc(scope.row)">申请状态</el-button>
 
-            <el-button type="primary" link icon="edit" size="small" class="table-button" @click="getAuthMessagesByMercIdFunc(scope.row)">明细信息</el-button>
+    
 
             <el-button type="primary" link icon="edit" size="small" class="table-button" @click="getAuthStateFunc(scope.row)">授权状态</el-button>
 

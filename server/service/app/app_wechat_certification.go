@@ -127,6 +127,22 @@ func (appWechatCertificationService *AppWechatCertificationService) WechatCertif
 	}
 }
 
+//向前端返回认证小程序二维码
+func (appWechatCertificationService *AppWechatCertificationService) Authentication(uid uint) (err error, imgUrl string) {
+	var info app.AppCustInfo
+	global.GVA_DB.Where("uid = ?", uid).First(&info)
+
+	var sign app.AppSignContract
+	global.GVA_DB.Where("cust_id = ?", sign.CustId).First(&sign)
+
+	if sign.MercId != "" {
+		var wechat app.AppWechatCertification
+		err = global.GVA_DB.Where("merc_id = ?", wechat.MercId).First(&wechat).Error
+		imgUrl = wechat.QrcodeData
+	}
+	return
+}
+
 //查询微信实名认证状态
 func (appWechatCertificationService *AppWechatCertificationService) CertificationState(applyNo string) (err error) {
 
