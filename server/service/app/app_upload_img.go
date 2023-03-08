@@ -42,7 +42,7 @@ func (appUploadImgService *AppUploadImgService) ImgSubmit(id uint) (err error) {
 		return errors.New("查找不到数据")
 	}
 	custInfoId := *i.CustInfoId
-	err, info := GetCustInfo(uint(custInfoId))
+	err, info, _ := GetCustInfo(uint(custInfoId))
 	if err != nil {
 		return errors.New("获取商户进件数据失败")
 	}

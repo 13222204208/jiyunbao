@@ -109,7 +109,7 @@ func (appCustInfoService *AppCustInfoService) GetAppCustInfoInfoList(info appReq
 }
 
 //获取商户进件的数据
-func GetCustInfo(id uint) (err error, info map[string]string) {
+func GetCustInfo(id uint) (err error, info map[string]string, uid uint) {
 	var appCustInfo app.AppCustInfo
 	fmt.Println("资料ID", id)
 	err = global.GVA_DB.Where("id = ?", id).First(&appCustInfo).Error
@@ -118,6 +118,7 @@ func GetCustInfo(id uint) (err error, info map[string]string) {
 	}
 
 	ReqId = utils.ReqId() //流水号
+	uid = appCustInfo.Uid
 
 	info = map[string]string{
 		"reqId":          ReqId,
@@ -190,7 +191,7 @@ func CommonErrorCode(result YsResult) error {
 //资料上送  id 上送资料的ID
 func (appCustInfoService *AppCustInfoService) AddCustInfoApply(id uint) (err error) {
 
-	err, info := GetCustInfo(id)
+	err, info, _ := GetCustInfo(id)
 	if err != nil {
 		return errors.New("获取商户进件数据失败")
 	}
@@ -238,7 +239,7 @@ func SaveCustId(custInfoId uint, custId string) {
 
 //资料修改
 func (appCustInfoService *AppCustInfoService) ModifyCustInfoApply(id uint) (err error) {
-	err, info := GetCustInfo(id)
+	err, info, _ := GetCustInfo(id)
 	if err != nil {
 		return errors.New("获取商户进件数据失败")
 	}
@@ -267,7 +268,7 @@ func (appCustInfoService *AppCustInfoService) ModifyCustInfoApply(id uint) (err 
 
 //资料确认
 func (appCustInfoService *AppCustInfoService) AuditCustInfoApply(id uint) (err error) {
-	err, info := GetCustInfo(id)
+	err, info, _ := GetCustInfo(id)
 	if err != nil {
 		return errors.New("获取商户进件数据失败")
 	}
@@ -297,7 +298,7 @@ func (appCustInfoService *AppCustInfoService) AuditCustInfoApply(id uint) (err e
 
 //商户状态查询
 func (appCustInfoService *AppCustInfoService) QueryCustApply(id uint) (err error) {
-	err, info := GetCustInfo(id)
+	err, info, uid := GetCustInfo(id)
 	if err != nil {
 		return errors.New("获取商户进件数据失败")
 	}
@@ -314,7 +315,9 @@ func (appCustInfoService *AppCustInfoService) QueryCustApply(id uint) (err error
 		if err != nil {
 			return errors.New("解析结果错误")
 		}
-		fmt.Println("返回的结果", result)
+		fmt.Println("返回的用户id", uid)
+		global.GVA_DB.Model(&app.AppUser{}).Where("id = ?", uid).Update("pay_state", 1)
+		fmt.Println("返结果", result)
 		return CommonErrorCode(result)
 	}
 }

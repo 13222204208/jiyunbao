@@ -276,7 +276,7 @@ func (appCustInfoApi *AppCustInfoApi) QueryCustApply(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-
+	fmt.Println("我是一只小小鸟")
 	if err := appCustInfoService.QueryCustApply(appCustInfo.ID); err != nil {
 		response.FailWithMessage(err.Error(), c)
 	} else {
